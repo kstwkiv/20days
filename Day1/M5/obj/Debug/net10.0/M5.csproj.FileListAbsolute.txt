@@ -1,0 +1,15 @@
+D:\20days\Day1\M5\obj\Debug\net10.0\M5.GeneratedMSBuildEditorConfig.editorconfig
+D:\20days\Day1\M5\obj\Debug\net10.0\M5.AssemblyInfoInputs.cache
+D:\20days\Day1\M5\obj\Debug\net10.0\M5.AssemblyInfo.cs
+D:\20days\Day1\M5\obj\Debug\net10.0\M5.csproj.CoreCompileInputs.cache
+D:\20days\Day1\M5\obj\Debug\net10.0\M5.sourcelink.json
+D:\20days\Day1\M5\bin\Debug\net10.0\M5.exe
+D:\20days\Day1\M5\bin\Debug\net10.0\M5.deps.json
+D:\20days\Day1\M5\bin\Debug\net10.0\M5.runtimeconfig.json
+D:\20days\Day1\M5\bin\Debug\net10.0\M5.dll
+D:\20days\Day1\M5\bin\Debug\net10.0\M5.pdb
+D:\20days\Day1\M5\obj\Debug\net10.0\M5.dll
+D:\20days\Day1\M5\obj\Debug\net10.0\refint\M5.dll
+D:\20days\Day1\M5\obj\Debug\net10.0\M5.pdb
+D:\20days\Day1\M5\obj\Debug\net10.0\M5.genruntimeconfig.cache
+D:\20days\Day1\M5\obj\Debug\net10.0\ref\M5.dll
