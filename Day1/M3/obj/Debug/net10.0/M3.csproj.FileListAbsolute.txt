@@ -1,0 +1,15 @@
+D:\20days\Day1\M3\bin\Debug\net10.0\M3.exe
+D:\20days\Day1\M3\bin\Debug\net10.0\M3.deps.json
+D:\20days\Day1\M3\bin\Debug\net10.0\M3.runtimeconfig.json
+D:\20days\Day1\M3\bin\Debug\net10.0\M3.dll
+D:\20days\Day1\M3\bin\Debug\net10.0\M3.pdb
+D:\20days\Day1\M3\obj\Debug\net10.0\M3.GeneratedMSBuildEditorConfig.editorconfig
+D:\20days\Day1\M3\obj\Debug\net10.0\M3.AssemblyInfoInputs.cache
+D:\20days\Day1\M3\obj\Debug\net10.0\M3.AssemblyInfo.cs
+D:\20days\Day1\M3\obj\Debug\net10.0\M3.csproj.CoreCompileInputs.cache
+D:\20days\Day1\M3\obj\Debug\net10.0\M3.sourcelink.json
+D:\20days\Day1\M3\obj\Debug\net10.0\M3.dll
+D:\20days\Day1\M3\obj\Debug\net10.0\refint\M3.dll
+D:\20days\Day1\M3\obj\Debug\net10.0\M3.pdb
+D:\20days\Day1\M3\obj\Debug\net10.0\M3.genruntimeconfig.cache
+D:\20days\Day1\M3\obj\Debug\net10.0\ref\M3.dll

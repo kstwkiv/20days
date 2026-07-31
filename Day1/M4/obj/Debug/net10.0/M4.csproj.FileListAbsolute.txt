@@ -1,0 +1,15 @@
+D:\20days\Day1\M4\bin\Debug\net10.0\M4.exe
+D:\20days\Day1\M4\bin\Debug\net10.0\M4.deps.json
+D:\20days\Day1\M4\bin\Debug\net10.0\M4.runtimeconfig.json
+D:\20days\Day1\M4\bin\Debug\net10.0\M4.dll
+D:\20days\Day1\M4\bin\Debug\net10.0\M4.pdb
+D:\20days\Day1\M4\obj\Debug\net10.0\M4.GeneratedMSBuildEditorConfig.editorconfig
+D:\20days\Day1\M4\obj\Debug\net10.0\M4.AssemblyInfoInputs.cache
+D:\20days\Day1\M4\obj\Debug\net10.0\M4.AssemblyInfo.cs
+D:\20days\Day1\M4\obj\Debug\net10.0\M4.csproj.CoreCompileInputs.cache
+D:\20days\Day1\M4\obj\Debug\net10.0\M4.sourcelink.json
+D:\20days\Day1\M4\obj\Debug\net10.0\M4.dll
+D:\20days\Day1\M4\obj\Debug\net10.0\refint\M4.dll
+D:\20days\Day1\M4\obj\Debug\net10.0\M4.pdb
+D:\20days\Day1\M4\obj\Debug\net10.0\M4.genruntimeconfig.cache
+D:\20days\Day1\M4\obj\Debug\net10.0\ref\M4.dll

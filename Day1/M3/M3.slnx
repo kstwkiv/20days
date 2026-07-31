@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="../M4/M4.csproj" />
+  <Project Path="M3.csproj" />
+</Solution>
