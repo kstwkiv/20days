@@ -1,0 +1,15 @@
+D:\20days\Day1\H2\bin\Debug\net10.0\H2.exe
+D:\20days\Day1\H2\bin\Debug\net10.0\H2.deps.json
+D:\20days\Day1\H2\bin\Debug\net10.0\H2.runtimeconfig.json
+D:\20days\Day1\H2\bin\Debug\net10.0\H2.dll
+D:\20days\Day1\H2\bin\Debug\net10.0\H2.pdb
+D:\20days\Day1\H2\obj\Debug\net10.0\H2.GeneratedMSBuildEditorConfig.editorconfig
+D:\20days\Day1\H2\obj\Debug\net10.0\H2.AssemblyInfoInputs.cache
+D:\20days\Day1\H2\obj\Debug\net10.0\H2.AssemblyInfo.cs
+D:\20days\Day1\H2\obj\Debug\net10.0\H2.csproj.CoreCompileInputs.cache
+D:\20days\Day1\H2\obj\Debug\net10.0\H2.sourcelink.json
+D:\20days\Day1\H2\obj\Debug\net10.0\H2.dll
+D:\20days\Day1\H2\obj\Debug\net10.0\refint\H2.dll
+D:\20days\Day1\H2\obj\Debug\net10.0\H2.pdb
+D:\20days\Day1\H2\obj\Debug\net10.0\H2.genruntimeconfig.cache
+D:\20days\Day1\H2\obj\Debug\net10.0\ref\H2.dll
