@@ -1,0 +1,71 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\20days\\BikeRentals\\BikeRental\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{578438E1-A658-46FC-91F2-8E4965273AC5}|BikeRental.csproj|d:\\20days\\bikerentals\\bikerental\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{578438E1-A658-46FC-91F2-8E4965273AC5}|BikeRental.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{578438E1-A658-46FC-91F2-8E4965273AC5}|BikeRental.csproj|d:\\20days\\bikerentals\\bikerental\\bikeutility.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{578438E1-A658-46FC-91F2-8E4965273AC5}|BikeRental.csproj|solutionrelative:bikeutility.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{578438E1-A658-46FC-91F2-8E4965273AC5}|BikeRental.csproj|d:\\20days\\bikerentals\\bikerental\\bike.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{578438E1-A658-46FC-91F2-8E4965273AC5}|BikeRental.csproj|solutionrelative:bike.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "BikeUtility.cs",
+              "DocumentMoniker": "D:\\20days\\BikeRentals\\BikeRental\\BikeUtility.cs",
+              "RelativeDocumentMoniker": "BikeUtility.cs",
+              "ToolTip": "D:\\20days\\BikeRentals\\BikeRental\\BikeUtility.cs",
+              "RelativeToolTip": "BikeUtility.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-05T06:59:26.111Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Bike.cs",
+              "DocumentMoniker": "D:\\20days\\BikeRentals\\BikeRental\\Bike.cs",
+              "RelativeDocumentMoniker": "Bike.cs",
+              "ToolTip": "D:\\20days\\BikeRentals\\BikeRental\\Bike.cs",
+              "RelativeToolTip": "Bike.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-05T06:58:51.021Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\20days\\BikeRentals\\BikeRental\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "D:\\20days\\BikeRentals\\BikeRental\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-05T06:55:37.077Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
