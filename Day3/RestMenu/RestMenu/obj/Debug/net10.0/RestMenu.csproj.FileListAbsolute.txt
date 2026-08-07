@@ -1,0 +1,15 @@
+D:\20days\Day3\RestMenu\RestMenu\bin\Debug\net10.0\RestMenu.exe
+D:\20days\Day3\RestMenu\RestMenu\bin\Debug\net10.0\RestMenu.deps.json
+D:\20days\Day3\RestMenu\RestMenu\bin\Debug\net10.0\RestMenu.runtimeconfig.json
+D:\20days\Day3\RestMenu\RestMenu\bin\Debug\net10.0\RestMenu.dll
+D:\20days\Day3\RestMenu\RestMenu\bin\Debug\net10.0\RestMenu.pdb
+D:\20days\Day3\RestMenu\RestMenu\obj\Debug\net10.0\RestMenu.GeneratedMSBuildEditorConfig.editorconfig
+D:\20days\Day3\RestMenu\RestMenu\obj\Debug\net10.0\RestMenu.AssemblyInfoInputs.cache
+D:\20days\Day3\RestMenu\RestMenu\obj\Debug\net10.0\RestMenu.AssemblyInfo.cs
+D:\20days\Day3\RestMenu\RestMenu\obj\Debug\net10.0\RestMenu.csproj.CoreCompileInputs.cache
+D:\20days\Day3\RestMenu\RestMenu\obj\Debug\net10.0\RestMenu.sourcelink.json
+D:\20days\Day3\RestMenu\RestMenu\obj\Debug\net10.0\RestMenu.dll
+D:\20days\Day3\RestMenu\RestMenu\obj\Debug\net10.0\refint\RestMenu.dll
+D:\20days\Day3\RestMenu\RestMenu\obj\Debug\net10.0\RestMenu.pdb
+D:\20days\Day3\RestMenu\RestMenu\obj\Debug\net10.0\RestMenu.genruntimeconfig.cache
+D:\20days\Day3\RestMenu\RestMenu\obj\Debug\net10.0\ref\RestMenu.dll

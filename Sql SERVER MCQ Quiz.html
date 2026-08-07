@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL MCQ · 30 Questions · 60 min</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <style>
+        /* --- Disable text selection & copying --- */
+        * {
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+        /* Allow selection inside input/radio for usability */
+        input, label {
+            user-select: text;
+            -webkit-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, system-ui, sans-serif;
+            background: #f4f7fc;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+            margin: 0;
+        }
+        .quiz-wrapper {
+            max-width: 1000px;
+            width: 100%;
+            background: white;
+            border-radius: 32px;
+            box-shadow: 0 20px 40px -12px rgba(0,20,40,0.25);
+            padding: 32px 36px;
+            transition: all 0.2s;
+        }
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px 12px;
+            margin-bottom: 28px;
+            border-bottom: 1px solid #e9edf4;
+            padding-bottom: 18px;
+        }
+        .q-counter {
+            background: #eef2f8;
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #1a2b3e;
+            letter-spacing: 0.3px;
+        }
+        .timer-box {
+            background: #1a2b3e;
+            color: white;
+            padding: 8px 24px;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 1.4rem;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .timer-box span {
+            font-weight: 400;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin-right: 4px;
+        }
+        .question-container {
+            margin: 20px 0 28px 0;
+        }
+        .q-text {
+            font-size: 1.3rem;
+            font-weight: 600;
+            line-height: 1.5;
+            color: #0b1a2b;
+            background: #f8faff;
+            padding: 18px 22px;
+            border-radius: 20px;
+            border-left: 6px solid #2a7de1;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+            margin-bottom: 28px;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+        .options-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 16px 0 24px 0;
+        }
+        .option-item {
+            display: flex;
+            align-items: center;
+            background: #f9fbfe;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 18px;
+            padding: 14px 22px;
+            transition: 0.15s ease;
+            cursor: pointer;
+        }
+        .option-item:hover {
+            background: #f0f5ff;
+            border-color: #b6cce6;
+        }
+        .option-item.selected {
+            background: #e3edfe;
+            border-color: #2a7de1;
+            box-shadow: 0 0 0 2px rgba(42, 125, 225, 0.15);
+        }
+        .option-item input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #1a5bbf;
+            flex-shrink: 0;
+            margin-right: 18px;
+            cursor: pointer;
+        }
+        .option-item label {
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: #1e2f40;
+            cursor: pointer;
+            flex: 1;
+            letter-spacing: -0.2px;
+            word-break: break-word;
+        }
+        .nav-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-top: 16px;
+            border-top: 1px solid #e6ecf5;
+            padding-top: 24px;
+        }
+        .btn {
+            background: white;
+            border: 1.5px solid #d0d9e6;
+            padding: 12px 28px;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #1f344a;
+            cursor: pointer;
+            transition: 0.15s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #fafcff;
+        }
+        .btn-primary {
+            background: #1a2b3e;
+            border-color: #1a2b3e;
+            color: white;
+            box-shadow: 0 4px 8px rgba(0,20,40,0.08);
+        }
+        .btn-primary:hover {
+            background: #0f1e2f;
+            border-color: #0f1e2f;
+        }
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+        .btn-outline {
+            background: transparent;
+            border-color: #c8d3e3;
+        }
+        .btn-outline:hover {
+            background: #eef3fc;
+        }
+        .btn:active {
+            transform: scale(0.97);
+        }
+        .submit-area {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 18px;
+        }
+        .result-panel {
+            background: #f0f7fe;
+            border-radius: 28px;
+            padding: 28px 30px;
+            margin-top: 20px;
+            border: 1px solid #d6e3f5;
+        }
+        .result-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px 50px;
+            font-size: 1.1rem;
+        }
+        .result-stats div {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
+        .result-stats strong {
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: #0a2540;
+        }
+        .badge {
+            background: #1f344a;
+            color: white;
+            padding: 4px 14px;
+            border-radius: 40px;
+            font-size: 0.9rem;
+        }
+        .hidden {
+            display: none;
+        }
+        .blocked-msg {
+            background: #fee2e2;
+            border: 1px solid #f87171;
+            color: #991b1b;
+            padding: 20px;
+            border-radius: 16px;
+            text-align: center;
+            font-weight: 500;
+        }
+        @media (max-width: 650px) {
+            .quiz-wrapper { padding: 20px 16px; }
+            .q-text { font-size: 1.1rem; padding: 14px 16px; }
+            .option-item { padding: 12px 16px; }
+            .top-bar { flex-direction: column; align-items: stretch; }
+            .timer-box { justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Add these fields at the top of the quiz -->
+<div style="margin-bottom: 20px; padding: 16px; background: #f8faff; border-radius: 12px;">
+    <label><strong>Trainee Name:</strong></label>
+    <input type="text" id="traineeName" placeholder="Enter your name" style="width: 100%; padding: 8px; margin-top: 4px; border: 1px solid #d0d9e6; border-radius: 6px;">
+    
+    <label style="margin-top: 10px; display: block;"><strong>Trainee Email:</strong></label>
+    <input type="email" id="traineeEmail" placeholder="Enter your email" style="width: 100%; padding: 8px; margin-top: 4px; border: 1px solid #d0d9e6; border-radius: 6px;">
+</div>
+<div class="quiz-wrapper" id="app">
+    <div id="mainContent">
+        <!-- top bar -->
+        <div class="top-bar">
+            <div class="q-counter" id="questionCounter">Question 1 / 30</div>
+            <div class="timer-box"><span>⏱</span> <span id="timerDisplay">60:00</span></div>
+        </div>
+
+        <!-- question area -->
+        <div id="questionArea">
+            <div class="question-container">
+                <div class="q-text" id="qText">Loading question...</div>
+                <div class="options-grid" id="optionsContainer"></div>
+            </div>
+            <div class="nav-area">
+                <div>
+                    <button class="btn btn-outline" id="prevBtn" disabled>← Previous</button>
+                    <button class="btn btn-outline" id="nextBtn">Next →</button>
+                </div>
+                <div>
+                    <button class="btn btn-primary" id="submitBtn">Submit test</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- result panel (hidden by default) -->
+        <div id="resultPanel" class="result-panel hidden">
+            <h3 style="margin-bottom: 16px; font-weight: 600; color: #0a1f32;">📊 Test summary</h3>
+            <div class="result-stats">
+                <div><span>Attempted</span> <strong id="attemptedCount">0</strong> <span class="text-muted">/ 30</span></div>
+                <div><span>Score</span> <strong id="scoreCount">0</strong> <span class="text-muted">/ 30</span></div>
+                <div><span>Percentage</span> <strong id="percentCount">0%</strong></div>
+            </div>
+            <div style="margin-top: 18px; display: flex; gap: 18px; flex-wrap: wrap;">
+                <!-- Restart removed to enforce one attempt; but we keep it for admin/testing? We'll hide it -->
+            </div>
+        </div>
+    </div>
+    <!-- Blocked message (hidden by default) -->
+    <div id="blockedMsg" class="blocked-msg hidden">
+        <strong>⛔ Access Denied</strong><br>
+        You have already completed this test. Only one attempt is allowed per trainee.
+    </div>
+</div>
+
+<script>
+(function() {
+    // -------- PROTECTIONS --------
+
+    // 1. Disable right-click
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+        return false;
+    });
+
+    // 2. Disable keyboard shortcuts for copying, viewing source, etc.
+    document.addEventListener('keydown', function(e) {
+        // Ctrl+C, Ctrl+A, Ctrl+U, Ctrl+S, F12
+        if (e.ctrlKey && (e.key === 'c' || e.key === 'a' || e.key === 'u' || e.key === 's')) {
+            e.preventDefault();
+            return false;
+        }
+        if (e.key === 'F12') {
+            e.preventDefault();
+            return false;
+        }
+    });
+
+    // 3. Disable text selection via CSS (already applied)
+
+    // 4. One attempt per machine (localStorage)
+    const STORAGE_KEY = 'sql_quiz_completed';
+    const LOCK_KEY = 'sql_quiz_lock';
+
+    // Check if already completed
+    if (localStorage.getItem(STORAGE_KEY) === 'true') {
+        document.getElementById('mainContent').classList.add('hidden');
+        document.getElementById('blockedMsg').classList.remove('hidden');
+        return; // Stop execution
+    }
+
+    // 5. Prevent multiple tabs/windows (simple lock using localStorage + interval)
+    // Acquire lock
+    const lockValue = Date.now() + '_' + Math.random();
+    let lockAcquired = false;
+
+    function acquireLock() {
+        const existingLock = localStorage.getItem(LOCK_KEY);
+        if (existingLock) {
+            // Check if lock is stale (older than 10 seconds)
+            const lockTime = parseInt(existingLock.split('_')[0]);
+            if (Date.now() - lockTime > 10000) {
+                // Stale lock, take it
+                localStorage.setItem(LOCK_KEY, lockValue);
+                lockAcquired = true;
+                return true;
+            } else {
+                // Active lock in another tab
+                return false;
+            }
+        } else {
+            localStorage.setItem(LOCK_KEY, lockValue);
+            lockAcquired = true;
+            return true;
+        }
+    }
+
+    function releaseLock() {
+        if (lockAcquired) {
+            const currentLock = localStorage.getItem(LOCK_KEY);
+            if (currentLock === lockValue) {
+                localStorage.removeItem(LOCK_KEY);
+            }
+            lockAcquired = false;
+        }
+    }
+
+    // Try to acquire lock; if fails, show blocked message
+    if (!acquireLock()) {
+        document.getElementById('mainContent').classList.add('hidden');
+        const msg = document.getElementById('blockedMsg');
+        msg.classList.remove('hidden');
+        msg.innerHTML = '<strong>⛔ Test in progress</strong><br>This test is already being taken in another tab or window. Please close other tabs and try again.';
+        return;
+    }
+
+    // Release lock when page is closed or refreshed
+    window.addEventListener('beforeunload', function() {
+        releaseLock();
+    });
+
+    // Also release if user navigates away
+    window.addEventListener('pagehide', function() {
+        releaseLock();
+    });
+
+    // -------- QUIZ LOGIC (same as before) --------
+
+    const questions = [
+        { q: "Consider Multiple assignment Statement. <br>(i)  SET @CostPrice = 120 , @SellPrice = 150<br>(ii) SELECT @CostPrice = 120 , @SellPrice = 150 <br><br>Which of the following is true", options: ["both 1 and 2 are valid", "both 1 and 2 are not valid", "option 1 is Valid and 2 is not Valid", "option 2 is Valid and 1 is not Valid"], correct: 4 },
+        { q: "What will be the result of the below snippet<br>Declare @flag bit;<br>Set @flag=3;<br>print @flag", options: ["0", "1", "3", "None of the above"], correct: 2 },
+        { q: "Which of the following SQL Statement is used for applying a Primary key on a Table (ZipCode_INFO)?", options: ["ALTER TABLE ZIPCODE_INFO ADD (CONSTRAINT ZIP_PK PRIMARY KEY (ZIP_CODE))", "ALTER TABLE ZIPCODE_INFO ADD (CONSTRAINT PRIMARY KEY (ZIP_CODE))", "ALTER TABLE ZIPCODE_INFO ADD  CONSTRAINT ZIP_PK PRIMARY KEY (ZIP_CODE) NOT NULL", "ALTER TABLE ZIPCODE_INFO ADD (CONSTRAINT ZIP_PK PRIMARY KEY (ZIP_CODE),NOT NULL)"], correct: 1 },
+        { q: "In SQL, how do you select all the records from a table named \"Products\" where the value of the column \"ProductName\" is \"ATP102\"? (Select the best option)", options: ["SELECT [all] FROM Products WHERE ProductName='ATP102'", "SELECT * FROM Products WHERE ProductName='ATP102'", "SELECT [all] FROM Productss WHERE ProductNam LIKE 'ATP102'", "SELECT * FROM Products WHERE ProductName LIKE 'ATP102'"], correct: 2 },
+        { q: "With SQL, how can you return all the records from a table named Students sorted descending by FirstName", options: ["SELECT * FROM Students SORT BY ‘FirstName’ DESC", "SELECT * FROM Students ORDER FirstName DESC", "SELECT * FROM Students SORT ‘FirstName’ DESC", "SELECT * FROM Students ORDER BY FirstName DESC"], correct: 4 },
+        { q: "Review the query below and answer the question about it. <br><br>SELECT * FROM Employees WHERE Phone LIKE '626%' <br>Which Employee Phone number(s) will be selected when the query is executed? <br> (Select the best option)", options: ["626 362-2222", "416 626-6232", "623 455-6545", "Both a and b"], correct: 1 },
+        { q: "Which of the following Query helps you to Find all the Rows having temperature greater than 'Chennai' from Weathers table<br>Which SQL Server command/statement she should use?", options: ["SELECT * FROM weather WHERE temperature > (SELECT temperature FROM weather WHERE city = 'Chennai')", "SELECT * FROM weather WHERE temperature > (SELECT * FROM weather WHERE city = 'Chennai')", "SELECT * FROM weather WHERE temperature > (SELECT city FROM weather WHERE city = 'Chennai')", "SELECT * FROM weather WHERE temperature >  'Chennai'.temperature"], correct: 1 },
+        { q: "You have the following table definition:<br>CREATE TABLE Product<br>(ID INTEGER PRIMARY KEY,<br>Name VARCHAR(20),<br>Quantity INTEGER)<br>The Product table contains the following data.<br>ID | Name    | Quantity<br>1  | Apple   | 200<br>2  | Mango   | 250<br>3  | Oranges | 400<br>4  | Papaya  | <br>You execute the following statement:<br>SELECT Name FROM Product WHERE Quantity IS NOT NULL<br>How many rows are returned?", options: ["1", "2", "3", "4", "0"], correct: 3 },
+        { q: "What is the output of the following SQL Statement<br><br>SELECT empname, empsal from employee ORDER BY empsal desc;<br>SELECT empname,empsal from employee ORDER BY 2 desc;<br>", options: ["Both will produce identical results", "Second statement will give an error", "Second statement will not give any result", "Both will produce results, but both will be different"], correct: 1 },
+        { q: "Which of the following Query helps you to  get EMPNO,ENAME,JOB,SAL where salary is in the range 1000 to 2000 (inclusive)", options: ["SELECT  EMPNO,ENAME,JOB,SAL FROM   EMP WHERE  SAL  IN ( 1000 , 2000);", "SELECT  EMPNO,ENAME,JOB,SAL FROM   EMP WHERE  SAL>  1000 AND  Sal<2000;", "SELECT  EMPNO,ENAME,JOB,SAL FROM   EMP WHERE  SAL  BETWEEN  1000 AND  2000;", "SELECT  EMPNO,ENAME,JOB,SAL FROM   EMP WHERE  SAL  HAVING  1000 AND  2000;"], correct: 3 },
+        { q: "You are working as a database developer in datamatrix.your job is to find the  the student details of all students along with city and state. Sort the result on the basis of zip code.Which Sql statement you used to do the same?", options: ["SELECT STUDENT_ID, ISNULL(FIRST_NAME, '')+' '+ISNULL(LAST_NAME,''), CITY, STATE FROM STUDENT_INFO S, ZIPCODE_INFO Z WHERE S.ZIP=Z.ZIP ORDER BY Z.ZIP DESC", "SELECT STUDENT_ID, ISNULL(FIRST_NAME, '')+' '+ISNULL(LAST_NAME,''), CITY, STATE FROM STUDENT_INFO S, ZIPCODE_INFO Z WHERE S.ZIP=Z.ZIP GROUP BY Z.ZIP", "SELECT STUDENT_ID, ISNULL(FIRST_NAME, '')+' '+ISNULL(LAST_NAME,''), CITY FROM STUDENT_INFO S, ZIPCODE_INFO Z WHERE S.ZIP=Z.ZIP ORDER BY Z.ZIP ASC", "SELECT STUDENT_ID, ISNULL(FIRST_NAME, '')+' '+ISNULL(LAST_NAME,''), CITY,STATE FROM STUDENT_INFO S, ZIPCODE_INFO Z WHERE S.ZIP=Z.ZIP ORDER BY Z.ZIP"], correct: 4 },
+        { q: "You are working as a database developer in datamatrix.your job is to find the COUNT of all orders placed in 2019, by  e-mailID of Customers sorted in descending order?", options: ["SELECT customers.email, COUNT(*) AS Total_Orders FROM orders INNER JOIN customers on orders.customer_id = customers.customer_id WHERE orders.order_placed_date BETWEEN CAST('2019-01-01' AS DATE) AND CAST('2019-12-31' AS DATE) ORDER BY Total_Orders DESC GROUP BY customers.email;", "SELECT customers.email, COUNT(*) AS Total_Orders FROM orders INNER JOIN customers on orders.customer_id = customers.customer_id WHERE orders.order_placed_date BETWEEN CAST('2019-01-01' AS DATE) AND CAST('2019-12-31' AS DATE) GROUP BY customers.email ORDER BY Total_Orders DESC;", "SELECT customers.email, COUNT(*) AS Total_Orders FROM orders INNER JOIN customers on orders.customer_id = customers.customer_id WHERE orders.order_placed_date BETWEEN CAST('2019-01-01' AS DATE) AND CAST('2019-12-31' AS DATE) GROUP BY customers.email ORDER BY Total_Orders ;", "SELECT customers.email, COUNT(*) AS Total_Orders FROM orders INNER JOIN customers on orders.customer_id = customers.customer_id WHERE orders.order_placed_date BETWEEN CAST('2019-01-01' AS DATE) AND CAST('2019-12-31' AS DATE) ORDER BY Total_Orders GROUP BY customers.email;"], correct: 2 },
+        { q: "Which of the following Query helps you to display the student number, section id and grade type code along with numeric grade and the month name of enroll date for student id =220 and section id =119", options: ["SELECT STUDENT_ID, SECTION_ID, GRADE_TYPE_CODE, NUMERIC_GRADE, TO_CHAR(ENROLLMENT_DATE,’MM’) FROM ENROLLMENT_INFO E, GRADE_INFO G WHERE E.STUDENT_ID=G.STUDENT_ID AND E.SECTION_ID=G.SECTION_ID AND G.STUDENT_ID=220 AND G.SECTION_ID=119", "SELECT STUDENT_ID, SECTION_ID, GRADE_TYPE_CODE, NUMERIC_GRADE, DATEPART(M,ENROLLMENT_DATE) FROM ENROLLMENT_INFO E, GRADE_INFO G WHERE E.STUDENT_ID=G.STUDENT_ID AND E.SECTION_ID=G.SECTION_ID AND G.STUDENT_ID=220 AND G.SECTION_ID=119", "SELECT STUDENT_ID, SECTION_ID, GRADE_TYPE_CODE, NUMERIC_GRADE, TO_CHAR(ENROLLMENT_DATE,’MON’) FROM ENROLLMENT_INFO E, GRADE_INFO G WHERE E.STUDENT_ID=G.STUDENT_ID AND E.SECTION_ID=G.SECTION_ID AND G.STUDENT_ID=220 AND G.SECTION_ID=119", "SELECT STUDENT_ID, SECTION_ID, GRADE_TYPE_CODE, NUMERIC_GRADE, MONTH(ENROLLMENT_DATE) FROM ENROLLMENT_INFO E, GRADE_INFO G WHERE E.STUDENT_ID=G.STUDENT_ID AND E.SECTION_ID=G.SECTION_ID AND G.STUDENT_ID=220 AND G.SECTION_ID=119"], correct: 3 },
+        { q: "which of the following query helps you to displays the employees with no sale in the last 3 months to customers, who are from \"USA\".", options: ["Select * From Employees e Where not exists (Select * from orders o join customers c on c.CustomerID = o.CustomerID Where c.Country = \"USA\" and o.saleDate >= DateAdd(month, 6, getdate()))", "Select * From Employees e Where not exists (Select * from orders o join customers c on c.CustomerID = o.CustomerID Where c.Country = \"USA\" and o.saleDate >= DateAdd(month, -6, getdate()))", "Select * From Employees e Where not exists (Select * from orders o join customers c on c.CustomerID = o.CustomerID Where c.Country = \"USA\" and o.saleDate >= DateDiff(month, -6, getdate()))", "Select * From Employees e Where not exists (Select * from orders o join customers c on c.CustomerID = o.CustomerID Where c.Country = \"USA\" and o.saleDate >= DateDiff(month, 6, getdate()))"], correct: 2 },
+        { q: "Find all the Rows having temperature greater than 'Chennai' from Weathers table (same as Q7)", options: ["SELECT * FROM weather WHERE temperature > (SELECT temperature FROM weather WHERE city = 'Chennai')", "SELECT * FROM weather WHERE temperature > (SELECT * FROM weather WHERE city = 'Chennai')", "SELECT * FROM weather WHERE temperature > (SELECT city FROM weather WHERE city = 'Chennai')", "SELECT * FROM weather WHERE temperature >  'Chennai'.temperature"], correct: 1 },
+        { q: "Which of the following Query helps you to display the section id and numeric grade whose numeric grade is less then the average numeric grade of both student id 280 and 283.", options: ["SELECT SECTION_ID, NUMERIC_GRADE FROM GRADE_INFO WHERE NUMERIC_GRADE < (SELECT NUMERIC_GRADE FROM GRADE_INFO WHERE STUDENT_ID IN (280,283))", "SELECT SECTION_ID, NUMERIC_GRADE FROM GRADE_INFO WHERE NUMERIC_GRADE <ALL (SELECT NUMERIC_GRADE FROM GRADE_INFO WHERE STUDENT_ID IN (280,283))", "SELECT SECTION_ID, NUMERIC_GRADE FROM GRADE_INFO WHERE NUMERIC_GRADE <ALL (SELECT NUMERIC_GRADE FROM GRADE_INFO WHERE STUDENT_ID BETWEEN (280,283))", "SELECT SECTION_ID, NUMERIC_GRADE FROM GRADE_INFO WHERE NUMERIC_GRADE >ALL (SELECT NUMERIC_GRADE FROM GRADE_INFO WHERE STUDENT_ID LIKE (280,283))"], correct: 2 },
+        { q: "Which of the following SubQuery executes without any error", options: ["UPDATE  CopyEmp SET DepartmentId = (SELECT DepartmentId FROM Employees WHERE EmpId =100) WHERE JobId = (SELECT JobId FROM Employees WHERE EmpId = 200)", "UPDATE  CopyEmp SET DepartmentId = (SELECT DepartmentId FROM Employees WHERE EmpId =100) WHERE JobId = (SELECT JobId,JobDescription FROM Employees WHERE EmpId = 200)", "UPDATE  CopyEmp SET DepartmentId = (SELECT DepartmentId FROM Employees WHERE EmpId =100) WHERE JobId IN (SELECT JobId FROM Employees WHERE EmpId = 200)", "UPDATE  CopyEmp SET DepartmentId = (SELECT DepartmentId FROM Employees WHERE EmpId =100) WHERE JobId = (SELECT * FROM Employees WHERE EmpId = 200)"], correct: 1 },
+        { q: "Which of the following query helps you to display the instructor details along with the city, state who are not teaching the section 2.", options: ["SELECT ISNULL(FIRST_NAME, '') +' '+ISNULL(LAST_NAME, ''), CITY, STATE FROM INSTRUCTOR_INFO I, ZIPCODE_INFO Z, SECTION_INFO S WHERE I.ZIP=Z.ZIP AND I.INSTRUCTOR_ID=S.INSTRUCTOR_ID AND S.SECTION_NO=2", "SELECT ISNULL(FIRST_NAME, '') +' '+ISNULL(LAST_NAME, ''), CITY, STATE FROM INSTRUCTOR_INFO I, ZIPCODE_INFO Z, SECTION_INFO S WHERE I.ZIP=Z.ZIP AND I.INSTRUCTOR_ID=S.INSTRUCTOR_ID AND S.SECTION_NO!=2", "SELECT ISNULL(FIRST_NAME, '') +' '+ISNULL(LAST_NAME, ''), CITY, STATE FROM INSTRUCTOR_INFO I, ZIPCODE_INFO Z, SECTION_INFO S WHERE I.ZIP=Z.ZIP AND I.INSTRUCTOR_ID=S.INSTRUCTOR_ID AND S.SECTION_NO>2", "SELECT ISNULL(FIRST_NAME, '') +' '+ISNULL(LAST_NAME, ''), CITY, STATE FROM INSTRUCTOR_INFO I, ZIPCODE_INFO Z, SECTION_INFO S WHERE I.ZIP=Z.ZIP AND I.INSTRUCTOR_ID=S.INSTRUCTOR_ID AND S.SECTION_NO NOT 2"], correct: 2 },
+        { q: "Which of the following query helps you to display the student number, course number, enrollment date and section id for students who are enrolled in course number 20 on January 30 2000.", options: ["SELECT STUDENT_ID, COURSE_NO, ENROLLMENT_DATE, S.SECTION_ID FROM SECTION_INFO S, ENROLLMENT_INFO E WHERE S.SECTION_ID=E.SECTION_ID AND COURSE_NO=20 AND ENROLLMENT_DATE=CONVERT(VARCHAR(11), '30-JAN-2000', 106) AS [DD MON YYYY]", "SELECT STUDENT_ID, COURSE_NO, ENROLLMENT_DATE, S.SECTION_ID FROM SECTION_INFO S, ENROLLMENT_INFO E WHERE S.SECTION_ID=E.SECTION_ID AND COURSE_NO=20 AND ENROLLMENT_DATE=CONVERT(VARCHAR(11), '30-JAN-2000', 106) AS [DD MMM YYYY]", "SELECT STUDENT_ID, COURSE_NO, ENROLLMENT_DATE, S.SECTION_ID FROM SECTION_INFO S, ENROLLMENT_INFO E WHERE S.SECTION_ID=E.SECTION_ID AND COURSE_NO=20 AND ENROLLMENT_DATE=CONVERT(VARCHAR(11), '30-JAN-2000', 102) AS [DD MON YYYY]", "SELECT STUDENT_ID, COURSE_NO, ENROLLMENT_DATE, S.SECTION_ID FROM SECTION_INFO S, ENROLLMENT_INFO E WHERE S.SECTION_ID=E.SECTION_ID AND COURSE_NO=20 AND ENROLLMENT_DATE=CONVERT(VARCHAR(11), '30-JAN-2000', 106) AS [ MON DD YYYY]"], correct: 1 },
+        { q: "Alok is working in DataMatrix as a DBA,he was assigned with a task to fetch Student details who have enrolled on Thursday", options: ["SELECT ISNULL(FIRST_NAME, '') FROM STUDENT_INFO WHERE STUDENT_ID IN (SELECT STUDENT_ID FROM ENROLLMENT_INFO WHERE TO_WEEKDAY(ENROLL_DATE,'Day') ='Thursday')", "SELECT ISNULL(FIRST_NAME, '') FROM STUDENT_INFO WHERE STUDENT_ID IN (SELECT STUDENT_ID FROM ENROLLMENT_INFO WHERE TO_STRING(ENROLL_DATE,'Day') ='Thursday')", "SELECT ISNULL(FIRST_NAME, '') FROM STUDENT_INFO WHERE STUDENT_ID IN (SELECT STUDENT_ID FROM ENROLLMENT_INFO WHERE TO_CHAR(ENROLL_DATE,'Day') ='Thursday')", "SELECT ISNULL(FIRST_NAME, '') FROM STUDENT_INFO WHERE STUDENT_ID IN (SELECT STUDENT_ID FROM ENROLLMENT_INFO WHERE TO_DATETIME(ENROLL_DATE,'Day') ='Thursday')"], correct: 3 },
+        { q: "You want to create a view to show Odd rows from Employee table.which query helps you to achive the same", options: ["Select * from(Select rownum as rno,E.* from Employees E) where Div(rno,2)=1;", "Select * from(Select rownum as rno,E.* from Employees E) where (rno%2)=1;", "Select * from(Select rownum as rno,E.* from Employees E) where Mod(rno,2)=1;", "Select * from(Select rownum as rno,E.* from Employees E) where Mod(rno,2)==1;"], correct: 3 },
+        { q: "Which one is a valid syntax for deleting a view?", options: ["TRUNCATE VIEW view_name;", "DISCARD VIEW view_name/table_name;", "DROP VIEW view_name;", "DELETE VIEW view_name;"], correct: 3 },
+        { q: "You want to create a view to display the below output <br>Departments <br>10 Accounting in Pune<br>20 Sales in Mumbai<br>30 Research in Bangalore<br>40 Operations in Chennai<br> Which query you used inside your view to do the same", options: ["CREATE VIEW vDeptDetails AS select deptno || ' ' || dname || ' in ' || Loc DEPARTMENT from dept;", "CREATE VIEW vDeptDetails AS select deptno || \" \" ||  dname || \" in \" || Loc DEPARTMENT from dept;", "CREATE VIEW vDeptDetails AS select deptno || ' ' || 'dname'|| ' in ' || Loc DEPARTMENT from dept;", "CREATE VIEW vDeptDetails AS select dname || ' ' || deptno || in || Loc DEPARTMENT from dept;"], correct: 1 },
+        { q: "You want to create a view to display student_id and number of courses they are enrolled in. you have to display only those students who are enrolled in more than 2 courses. Which query you used inside your view to do the same", options: ["select STUDENT_ID,COUNT(SECTION_ID) as [Enrolled In] from ENROLLMENT_INFO group by STUDENT_ID having SECTION_ID>2", "select STUDENT_ID,COUNT(SECTION_ID) as [Enrolled In] from ENROLLMENT_INFO group by STUDENT_ID having SUM(SECTION_ID)>2", "select STUDENT_ID,SUM(SECTION_ID) as [Enrolled In] from ENROLLMENT_INFO group by STUDENT_ID having COUNT(SECTION_ID)>2", "select STUDENT_ID,COUNT(SECTION_ID) as [Enrolled In] from ENROLLMENT_INFO group by STUDENT_ID having COUNT(SECTION_ID)>2"], correct: 4 },
+        { q: "You have a requirement to create a view which can return all the records from a table named Students, sorted descending by FirstName", options: ["CREATE VIEW vStudentByFirstName AS SELECT * FROM Students SORT BY FirstName DESC", "CREATE VIEW vStudentByFirstName AS SELECT * FROM Students ORDER FirstName DESC", "CREATE VIEW vStudentByFirstName AS SELECT * FROM Students SORT 'FirstName' DESC", "CREATE VIEW vStudentByFirstName AS SELECT * FROM Students ORDER BY FirstName DESC"], correct: 4 },
+        { q: "The user defined data type cannot be dropped if any table or other Objects of the database are referencing it. State True or False", options: ["True", "False"], correct: 1 },
+        { q: "Which of the following commands come under DDL", options: ["ALTER", "MODIFY", "UPDATE", "All of the above", "None of the above"], correct: 1 },
+        { q: "Which of the following is not a DML Command", options: ["SELECT", "UPDATE", "MODIFY", "DELETE"], correct: 3 },
+        { q: "A column can be bound to only one rule at any point of time. State True or False", options: ["True", "False"], correct: 1 },
+        { q: "____________ data type is used when a fixed length character string is required?", options: ["Varchar2 ()", "Varchar ()", "char", "All of the above", "None of the above"], correct: 3 },
+        { q: "Rashmi works as a Database Designer for DataMatrix. she wants to create a table named Products. she wrote the following query to create the Product table:<br>CREATE Product (<br>ProdID Char (10) NOT NULL,<br>OrderID Char (10) NULL<br>ProdName Varchar NOT NULL,<br>Primary key (OrderID, ProdID))<br>While running above query she got some error.kindly identify all possible errors", options: ["Each attribute should be defined as a primary key separately.", "An attribute declared as a primary key cannot contain NULL values.", "A table cannot have two primary keys", "ProductName is declared as Varchar without specifying the width of the column."], correct: "2,4" }
+    ];
+
+    // ---------- state ----------
+    let currentIndex = 0;
+    const totalQ = questions.length;
+    let answers = new Array(totalQ).fill(null);
+    let quizSubmitted = false;
+    let timerInterval = null;
+    let timeSeconds = 3600;
+
+    // DOM elements
+    const qText = document.getElementById('qText');
+    const optionsContainer = document.getElementById('optionsContainer');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const submitBtn = document.getElementById('submitBtn');
+    const timerDisplay = document.getElementById('timerDisplay');
+    const questionCounter = document.getElementById('questionCounter');
+    const questionArea = document.getElementById('questionArea');
+    const resultPanel = document.getElementById('resultPanel');
+    const attemptedCount = document.getElementById('attemptedCount');
+    const scoreCount = document.getElementById('scoreCount');
+    const percentCount = document.getElementById('percentCount');
+
+    // ---------- helpers ----------
+    function renderQuestion(index) {
+        if (quizSubmitted) return;
+        const q = questions[index];
+        if (!q) return;
+        qText.innerHTML = q.q;
+        const optLabels = ['A', 'B', 'C', 'D', 'E', 'F'];
+        optionsContainer.innerHTML = '';
+        q.options.forEach((opt, idx) => {
+            const div = document.createElement('div');
+            div.className = 'option-item';
+            if (answers[index] === idx) div.classList.add('selected');
+
+            const radio = document.createElement('input');
+            radio.type = 'radio';
+            radio.name = 'question';
+            radio.value = idx;
+            radio.id = `opt_${index}_${idx}`;
+            if (answers[index] === idx) radio.checked = true;
+
+            const label = document.createElement('label');
+            label.htmlFor = `opt_${index}_${idx}`;
+            label.textContent = `${optLabels[idx] || ''}. ${opt}`;
+
+            div.appendChild(radio);
+            div.appendChild(label);
+            optionsContainer.appendChild(div);
+
+            radio.addEventListener('change', function(e) {
+                if (quizSubmitted) return;
+                const val = parseInt(e.target.value);
+                answers[currentIndex] = val;
+                document.querySelectorAll('.option-item').forEach(el => el.classList.remove('selected'));
+                div.classList.add('selected');
+            });
+        });
+
+        questionCounter.textContent = `Question ${index+1} / ${totalQ}`;
+        prevBtn.disabled = (index === 0);
+        nextBtn.disabled = (index === totalQ - 1);
+    }
+
+    function updateTimerDisplay() {
+        const mins = Math.floor(timeSeconds / 60);
+        const secs = timeSeconds % 60;
+        timerDisplay.textContent = `${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}`;
+        if (timeSeconds <= 0) {
+            clearInterval(timerInterval);
+            submitQuiz();
+        }
+    }
+
+    function startTimer() {
+        if (timerInterval) clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            if (quizSubmitted) return;
+            timeSeconds--;
+            updateTimerDisplay();
+            if (timeSeconds <= 0) {
+                clearInterval(timerInterval);
+                submitQuiz();
+            }
+        }, 1000);
+    }
+
+    // ---------- submit & result ----------
+    function submitQuiz() {
+    if (quizSubmitted) return;
+    clearInterval(timerInterval);
+    quizSubmitted = true;
+
+    // Get trainee info
+    const traineeName = document.getElementById('traineeName')?.value || 'Anonymous';
+    const traineeEmail = document.getElementById('traineeEmail')?.value || 'N/A';
+
+    // Calculate results
+    let attempted = 0;
+    let score = 0;
+    let answersLog = [];
+    
+    for (let i = 0; i < totalQ; i++) {
+        const ans = answers[i];
+        if (ans !== null && ans !== undefined) {
+            attempted++;
+            const q = questions[i];
+            let isCorrect = false;
+            if (i === 29) {
+                const correctArr = q.correct.split(',').map(s => parseInt(s.trim()) - 1);
+                isCorrect = correctArr.includes(ans);
+            } else {
+                isCorrect = (ans === (q.correct - 1));
+            }
+            if (isCorrect) score++;
+            answersLog.push(`Q${i+1}: ${isCorrect ? '✓' : '✗'}`);
+        } else {
+            answersLog.push(`Q${i+1}: Skipped`);
+        }
+    }
+
+    const percentage = Math.round((score / totalQ) * 100);
+
+    // Display result
+    attemptedCount.textContent = attempted;
+    scoreCount.textContent = score;
+    percentCount.textContent = percentage + '%';
+    questionArea.classList.add('hidden');
+    resultPanel.classList.remove('hidden');
+
+    // Send data to Google Apps Script
+    const data = {
+        traineeName: traineeName,
+        traineeEmail: traineeEmail,
+        score: score,
+        attempted: attempted,
+        percentage: percentage,
+        answers: answersLog.join(' | ')
+    };
+
+    const APP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyvj9FU7AedF-LU0acFC5FfU6_33TwvonHnaC9dKozoQ47s5obfqlp0Z9m6VoRYlmpguw/exec';
+    
+    fetch(APP_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors', // Important for Apps Script
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+    }).catch(err => {
+        console.error('Failed to send results:', err);
+        // Results are still saved locally, you can log them
+    });
+
+    // Set localStorage flag
+    localStorage.setItem(STORAGE_KEY, 'true');
+    releaseLock();
+    // ... rest of your submit logic
+}
+    // ---------- navigation ----------
+    function goPrev() {
+        if (currentIndex > 0 && !quizSubmitted) {
+            currentIndex--;
+            renderQuestion(currentIndex);
+        }
+    }
+    function goNext() {
+        if (currentIndex < totalQ - 1 && !quizSubmitted) {
+            currentIndex++;
+            renderQuestion(currentIndex);
+        }
+    }
+
+    // ---------- init ----------
+    function init() {
+        prevBtn.addEventListener('click', goPrev);
+        nextBtn.addEventListener('click', goNext);
+        submitBtn.addEventListener('click', submitQuiz);
+
+        renderQuestion(0);
+        startTimer();
+    }
+
+    init();
+})();
+</script>
+</body>
+</html>
