@@ -1,0 +1,6 @@
+@NoCap.Eats.Notification.API_HostAddress = http://localhost:5241
+
+GET {{NoCap.Eats.Notification.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

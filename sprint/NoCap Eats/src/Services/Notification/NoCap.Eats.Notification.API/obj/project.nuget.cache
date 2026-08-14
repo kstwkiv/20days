@@ -1,0 +1,24 @@
+{
+  "version": 2,
+  "dgSpecHash": "LCzp0V5sbQc=",
+  "success": true,
+  "projectFilePath": "D:\\20days\\sprint\\NoCap Eats\\src\\Services\\Notification\\NoCap.Eats.Notification.API\\NoCap.Eats.Notification.API.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Sathwika\\.nuget\\packages\\microsoft.aspnetcore.openapi\\10.0.10\\microsoft.aspnetcore.openapi.10.0.10.nupkg.sha512",
+    "C:\\Users\\Sathwika\\.nuget\\packages\\microsoft.openapi\\2.0.0\\microsoft.openapi.2.0.0.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "message": "Package 'Microsoft.OpenApi' 2.0.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-v5pm-xwqc-g5wc",
+      "projectPath": "D:\\20days\\sprint\\NoCap Eats\\src\\Services\\Notification\\NoCap.Eats.Notification.API\\NoCap.Eats.Notification.API.csproj",
+      "warningLevel": 1,
+      "filePath": "D:\\20days\\sprint\\NoCap Eats\\src\\Services\\Notification\\NoCap.Eats.Notification.API\\NoCap.Eats.Notification.API.csproj",
+      "libraryId": "Microsoft.OpenApi",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    }
+  ]
+}

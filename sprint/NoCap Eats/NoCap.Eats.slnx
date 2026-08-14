@@ -1,0 +1,38 @@
+<Solution>
+  <Folder Name="/src/" />
+  <Folder Name="/src/BuildingBlocks/">
+    <Project Path="src/BuildingBlocks/NoCap.Eats.BuildingBlocks.Events/NoCap.Eats.BuildingBlocks.Events.csproj" />
+    <Project Path="src/BuildingBlocks/NoCap.Eats.BuildingBlocks.Messaging/NoCap.Eats.BuildingBlocks.Messaging.csproj" />
+  </Folder>
+  <Folder Name="/src/Services/" />
+  <Folder Name="/src/Services/Catalog/">
+    <Project Path="src/Services/Catalog/NoCap.Eats.Catalog.API/NoCap.Eats.Catalog.API.csproj" />
+    <Project Path="src/Services/Catalog/NoCap.Eats.Catalog.Application/NoCap.Eats.Catalog.Application.csproj" />
+    <Project Path="src/Services/Catalog/NoCap.Eats.Catalog.Domain/NoCap.Eats.Catalog.Domain.csproj" />
+    <Project Path="src/Services/Catalog/NoCap.Eats.Catalog.Infrastructure/NoCap.Eats.Catalog.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/src/Services/Delivery/">
+    <Project Path="src/Services/Delivery/NoCap.Eats.Delivery.API/NoCap.Eats.Delivery.API.csproj" />
+    <Project Path="src/Services/Delivery/NoCap.Eats.Delivery.Application/NoCap.Eats.Delivery.Application.csproj" />
+    <Project Path="src/Services/Delivery/NoCap.Eats.Delivery.Domain/NoCap.Eats.Delivery.Domain.csproj" />
+    <Project Path="src/Services/Delivery/NoCap.Eats.Delivery.Infrastructure/NoCap.Eats.Delivery.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/src/Services/Identity/">
+    <Project Path="src/Services/Identity/NoCap.Eats.Identity.API/NoCap.Eats.Identity.API.csproj" />
+    <Project Path="src/Services/Identity/NoCap.Eats.Identity.Application/NoCap.Eats.Identity.Application.csproj" />
+    <Project Path="src/Services/Identity/NoCap.Eats.Identity.Domain/NoCap.Eats.Identity.Domain.csproj" />
+    <Project Path="src/Services/Identity/NoCap.Eats.Identity.Infrastructure/NoCap.Eats.Identity.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/src/Services/Notification/">
+    <Project Path="src/Services/Notification/NoCap.Eats.Notification.API/NoCap.Eats.Notification.API.csproj" />
+    <Project Path="src/Services/Notification/NoCap.Eats.Notification.Application/NoCap.Eats.Notification.Application.csproj" />
+    <Project Path="src/Services/Notification/NoCap.Eats.Notification.Domain/NoCap.Eats.Notification.Domain.csproj" />
+    <Project Path="src/Services/Notification/NoCap.Eats.Notification.Infrastructure/NoCap.Eats.Notification.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/src/Services/Order/">
+    <Project Path="src/Services/Order/NoCap.Eats.Order.API/NoCap.Eats.Order.API.csproj" />
+    <Project Path="src/Services/Order/NoCap.Eats.Order.Application/NoCap.Eats.Order.Application.csproj" />
+    <Project Path="src/Services/Order/NoCap.Eats.Order.Domain/NoCap.Eats.Order.Domain.csproj" />
+    <Project Path="src/Services/Order/NoCap.Eats.Order.Infrastructure/NoCap.Eats.Order.Infrastructure.csproj" />
+  </Folder>
+</Solution>

@@ -1,0 +1,29 @@
+{
+  "version": 2,
+  "dgSpecHash": "0ZRj9gtaXVE=",
+  "success": true,
+  "projectFilePath": "D:\\20days\\sprint\\NoCap Eats\\src\\Services\\Order\\NoCap.Eats.Order.Application\\NoCap.Eats.Order.Application.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Sathwika\\.nuget\\packages\\automapper\\14.0.0\\automapper.14.0.0.nupkg.sha512",
+    "C:\\Users\\Sathwika\\.nuget\\packages\\fluentvalidation\\11.11.0\\fluentvalidation.11.11.0.nupkg.sha512",
+    "C:\\Users\\Sathwika\\.nuget\\packages\\mediatr\\12.5.0\\mediatr.12.5.0.nupkg.sha512",
+    "C:\\Users\\Sathwika\\.nuget\\packages\\mediatr.contracts\\2.0.1\\mediatr.contracts.2.0.1.nupkg.sha512",
+    "C:\\Users\\Sathwika\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.0\\microsoft.extensions.dependencyinjection.abstractions.8.0.0.nupkg.sha512",
+    "C:\\Users\\Sathwika\\.nuget\\packages\\microsoft.extensions.options\\8.0.0\\microsoft.extensions.options.8.0.0.nupkg.sha512",
+    "C:\\Users\\Sathwika\\.nuget\\packages\\microsoft.extensions.primitives\\8.0.0\\microsoft.extensions.primitives.8.0.0.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "message": "Package 'AutoMapper' 14.0.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-rvv3-g6hj-g44x",
+      "projectPath": "D:\\20days\\sprint\\NoCap Eats\\src\\Services\\Order\\NoCap.Eats.Order.Application\\NoCap.Eats.Order.Application.csproj",
+      "warningLevel": 1,
+      "filePath": "D:\\20days\\sprint\\NoCap Eats\\src\\Services\\Order\\NoCap.Eats.Order.Application\\NoCap.Eats.Order.Application.csproj",
+      "libraryId": "AutoMapper",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    }
+  ]
+}
