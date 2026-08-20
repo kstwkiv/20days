@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NoCap.Eats.Order.Domain\NoCap.Eats.Order.Domain.csproj" />
+    <ProjectReference Include="..\..\..\BuildingBlocks\NoCap.Eats.BuildingBlocks.Events\NoCap.Eats.BuildingBlocks.Events.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="14.0.0" />
+    <PackageReference Include="FluentValidation" Version="11.11.0" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.11.0" />
+    <PackageReference Include="MassTransit" Version="8.3.6" />
+    <PackageReference Include="MediatR" Version="12.5.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.7" />
+  </ItemGroup>
+
+</Project>

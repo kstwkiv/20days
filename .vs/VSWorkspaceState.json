@@ -2,7 +2,15 @@
   "ExpandedNodes": [
     "",
     "\\Day3",
-    "\\Day3\\TrackingSystem"
+    "\\Day3\\TrackingSystem",
+    "\\sprint",
+    "\\sprint\\NoCap Eats",
+    "\\sprint\\NoCap Eats\\src",
+    "\\sprint\\NoCap Eats\\src\\Services",
+    "\\sprint\\NoCap Eats\\src\\Services\\Catalog",
+    "\\sprint\\NoCap Eats\\src\\Services\\Catalog\\NoCap.Eats.Catalog.API",
+    "\\sprint\\NoCap Eats\\src\\Services\\Catalog\\NoCap.Eats.Catalog.API\\Middleware"
   ],
+  "SelectedNode": "\\sprint\\NoCap Eats\\src\\Services\\Catalog\\NoCap.Eats.Catalog.API\\Middleware\\ExceptionMiddleware.cs",
   "PreviewInSolutionExplorer": false
 }

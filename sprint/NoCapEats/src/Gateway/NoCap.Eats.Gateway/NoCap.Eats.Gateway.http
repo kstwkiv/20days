@@ -1,0 +1,284 @@
+### ============================================================
+### NoCap Eats — Full End-to-End Manual Test
+### All requests go through the API Gateway: http://localhost:5000
+###
+### EXECUTION ORDER:
+###   Step 1  → Identity  (register & login 3 users)
+###   Step 2  → Catalog   (create restaurant + menu)
+###   Step 3  → Order     (place + advance order)
+###   Step 4  → Delivery  (accept + deliver)
+###
+### HOW TO RUN (VS Code REST Client / Rider .http):
+###   Execute each ### block top-to-bottom.
+###   After each login, copy the token into the variable below it.
+### ============================================================
+
+@gateway = http://localhost:5000
+
+# ════════════════════════════════════════════════════════════════
+# STEP 1 — IDENTITY
+# ════════════════════════════════════════════════════════════════
+
+### [1.1] Register Customer
+POST {{gateway}}/api/auth/register
+Content-Type: application/json
+
+{
+  "fullName": "Jane Customer",
+  "email": "jane@nocap.com",
+  "password": "Password1",
+  "mobileNumber": "+1234567890",
+  "role": "Customer"
+}
+
+### [1.2] Register Restaurant Owner
+POST {{gateway}}/api/auth/register
+Content-Type: application/json
+
+{
+  "fullName": "Bob Owner",
+  "email": "bob@nocap.com",
+  "password": "Password1",
+  "mobileNumber": "+0987654321",
+  "role": "RestaurantOwner"
+}
+
+### [1.3] Register Delivery Agent
+POST {{gateway}}/api/auth/register
+Content-Type: application/json
+
+{
+  "fullName": "Dave Agent",
+  "email": "dave@nocap.com",
+  "password": "Password1",
+  "mobileNumber": "+1122334455",
+  "role": "DeliveryAgent"
+}
+
+### [1.4] Login as Customer  ← copy accessToken below
+# @name customerLogin
+POST {{gateway}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "jane@nocap.com",
+  "password": "Password1"
+}
+
+@customerToken = PASTE_TOKEN_HERE
+
+### [1.5] Login as Owner  ← copy accessToken below
+# @name ownerLogin
+POST {{gateway}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "bob@nocap.com",
+  "password": "Password1"
+}
+
+@ownerToken = PASTE_TOKEN_HERE
+@ownerId    = PASTE_USER_ID_HERE
+
+### [1.6] Login as Agent  ← copy accessToken below
+# @name agentLogin
+POST {{gateway}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "dave@nocap.com",
+  "password": "Password1"
+}
+
+@agentToken = PASTE_TOKEN_HERE
+
+### [1.7] Get own profile  → 200 with user details
+GET {{gateway}}/api/auth/me
+Authorization: Bearer {{customerToken}}
+
+### [1.8] No token  → 401
+GET {{gateway}}/api/auth/me
+
+
+# ════════════════════════════════════════════════════════════════
+# STEP 2 — CATALOG
+# ════════════════════════════════════════════════════════════════
+
+### [2.1] Browse restaurants (empty)  → 200 []
+GET {{gateway}}/api/restaurants
+
+### [2.2] Create restaurant  → 201
+# @name createRestaurant
+POST {{gateway}}/api/owner/restaurants
+Content-Type: application/json
+Authorization: Bearer {{ownerToken}}
+
+{
+  "name": "Bob's Gourmet Burgers",
+  "description": "Award-winning burgers",
+  "address": "123 Main Street",
+  "city": "London",
+  "phone": "+44123456789",
+  "cuisineType": "American"
+}
+
+@restaurantId = PASTE_RESTAURANT_ID_HERE
+
+### [2.3] Create customer tries owner endpoint  → 403
+POST {{gateway}}/api/owner/restaurants
+Content-Type: application/json
+Authorization: Bearer {{customerToken}}
+
+{
+  "name": "Sneaky",
+  "description": "test",
+  "address": "addr",
+  "city": "city",
+  "phone": "+1234567890",
+  "cuisineType": null
+}
+
+### [2.4] Add "Burgers" category  → 201
+# @name createCategory
+POST {{gateway}}/api/owner/restaurants/{{restaurantId}}/categories
+Content-Type: application/json
+Authorization: Bearer {{ownerToken}}
+
+{
+  "name": "Burgers",
+  "description": "Signature burgers",
+  "sortOrder": 1
+}
+
+@categoryId = PASTE_CATEGORY_ID_HERE
+
+### [2.5] Add menu item  → 201
+# @name createItem
+POST {{gateway}}/api/owner/restaurants/{{restaurantId}}/categories/{{categoryId}}/items
+Content-Type: application/json
+Authorization: Bearer {{ownerToken}}
+
+{
+  "name": "Classic Burger",
+  "description": "Beef patty, cheese, lettuce",
+  "price": 12.99
+}
+
+@menuItemId = PASTE_MENU_ITEM_ID_HERE
+
+### [2.6] Get my restaurants  → 200 [1 restaurant]
+GET {{gateway}}/api/owner/restaurants
+Authorization: Bearer {{ownerToken}}
+
+
+# ════════════════════════════════════════════════════════════════
+# STEP 3 — ORDERS
+# ════════════════════════════════════════════════════════════════
+
+### [3.1] Place order  → 201
+# @name placeOrder
+POST {{gateway}}/api/orders
+Content-Type: application/json
+Authorization: Bearer {{customerToken}}
+
+{
+  "restaurantId": "{{restaurantId}}",
+  "customerName": "Jane Customer",
+  "customerPhone": "+1234567890",
+  "deliveryAddress": "789 Customer Lane, London",
+  "deliveryNotes": "Leave at door",
+  "items": [
+    {
+      "menuItemId": "{{menuItemId}}",
+      "name": "Classic Burger",
+      "quantity": 2,
+      "unitPrice": 12.99
+    }
+  ]
+}
+
+@orderId = PASTE_ORDER_ID_HERE
+
+### [3.2] Customer views own orders  → 200 [Pending]
+GET {{gateway}}/api/orders/my
+Authorization: Bearer {{customerToken}}
+
+### [3.3] Restaurant views incoming orders  → 200 [1 order, Pending]
+GET {{gateway}}/api/restaurant-orders/{{restaurantId}}
+Authorization: Bearer {{ownerToken}}
+
+### [3.4] Confirm order (Pending → Confirmed)  → 200
+PUT {{gateway}}/api/restaurant-orders/{{orderId}}/status
+Content-Type: application/json
+Authorization: Bearer {{ownerToken}}
+
+{ "status": 1 }
+
+### [3.5] Start preparing (Confirmed → Preparing)  → 200
+PUT {{gateway}}/api/restaurant-orders/{{orderId}}/status
+Content-Type: application/json
+Authorization: Bearer {{ownerToken}}
+
+{ "status": 2 }
+
+### [3.6] Ready for pickup (Preparing → ReadyForPickup)  → 200
+PUT {{gateway}}/api/restaurant-orders/{{orderId}}/status
+Content-Type: application/json
+Authorization: Bearer {{ownerToken}}
+
+{ "status": 3 }
+
+### [3.7] Bad transition (ReadyForPickup → Delivered, skips agent)  → 409
+PUT {{gateway}}/api/restaurant-orders/{{orderId}}/status
+Content-Type: application/json
+Authorization: Bearer {{ownerToken}}
+
+{ "status": 5 }
+
+### [3.8] Customer tries to cancel after ReadyForPickup  → 409
+POST {{gateway}}/api/orders/{{orderId}}/cancel
+Authorization: Bearer {{customerToken}}
+
+
+# ════════════════════════════════════════════════════════════════
+# STEP 4 — DELIVERY
+# ════════════════════════════════════════════════════════════════
+
+### [4.1] Agent sees pending deliveries  → 200 [1 delivery created by consumer]
+GET {{gateway}}/api/deliveries/pending
+Authorization: Bearer {{agentToken}}
+
+@deliveryId = PASTE_DELIVERY_ID_HERE
+
+### [4.2] Customer tries delivery endpoint  → 403
+GET {{gateway}}/api/deliveries/pending
+Authorization: Bearer {{customerToken}}
+
+### [4.3] Agent accepts delivery  → 200 (status: Assigned)
+POST {{gateway}}/api/deliveries/{{deliveryId}}/accept
+Authorization: Bearer {{agentToken}}
+
+### [4.4] Agent accepts same delivery again  → 409 Conflict
+POST {{gateway}}/api/deliveries/{{deliveryId}}/accept
+Authorization: Bearer {{agentToken}}
+
+### [4.5] Mark picked up (Assigned → PickedUp)  → 200
+PUT {{gateway}}/api/deliveries/{{deliveryId}}/status
+Content-Type: application/json
+Authorization: Bearer {{agentToken}}
+
+{ "status": 2 }
+
+### [4.6] Mark delivered (PickedUp → Delivered)  → 200
+PUT {{gateway}}/api/deliveries/{{deliveryId}}/status
+Content-Type: application/json
+Authorization: Bearer {{agentToken}}
+
+{ "status": 3 }
+
+### [4.7] Verify agent's delivery history  → 200 [1 delivery, Delivered]
+GET {{gateway}}/api/deliveries/my
+Authorization: Bearer {{agentToken}}
+
+### [4.8] Notification health check  → 200 { status: "healthy" }
+GET {{gateway}}/notification/health

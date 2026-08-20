@@ -1,0 +1,161 @@
+### ============================================================
+### NoCap Eats — Order Service Manual Tests
+### Base: http://localhost:5202  (or via gateway :5000)
+### Prerequisite: Identity + Catalog tests done
+###   - Customer token
+###   - Owner token
+###   - A valid restaurantId and menuItemId from Catalog
+### ============================================================
+
+@baseUrl = http://localhost:5202
+
+# Paste tokens from Identity tests:
+@customerToken = PASTE_CUSTOMER_ACCESS_TOKEN_HERE
+@ownerToken    = PASTE_OWNER_ACCESS_TOKEN_HERE
+
+# Paste IDs from Catalog tests:
+@restaurantId  = PASTE_RESTAURANT_ID_HERE
+@menuItemId    = PASTE_MENU_ITEM_ID_HERE
+
+# ── 1. Place orders ───────────────────────────────────────────
+
+### 1a. Place order → 201
+# @name placeOrder
+POST {{baseUrl}}/api/orders
+Content-Type: application/json
+Authorization: Bearer {{customerToken}}
+
+{
+  "restaurantId": "{{restaurantId}}",
+  "customerName": "Jane Customer",
+  "customerPhone": "+1234567890",
+  "deliveryAddress": "789 Customer Lane, London",
+  "deliveryNotes": "Please ring the bell",
+  "items": [
+    {
+      "menuItemId": "{{menuItemId}}",
+      "name": "Classic Burger Deluxe",
+      "quantity": 2,
+      "unitPrice": 12.99
+    }
+  ]
+}
+
+### Store order ID from response:
+@orderId = PASTE_ORDER_ID_HERE
+
+### 1b. Empty items → 400
+POST {{baseUrl}}/api/orders
+Content-Type: application/json
+Authorization: Bearer {{customerToken}}
+
+{
+  "restaurantId": "{{restaurantId}}",
+  "customerName": "Jane Customer",
+  "customerPhone": "+1234567890",
+  "deliveryAddress": "789 Customer Lane",
+  "deliveryNotes": null,
+  "items": []
+}
+
+### 1c. No auth → 401
+POST {{baseUrl}}/api/orders
+Content-Type: application/json
+
+{
+  "restaurantId": "{{restaurantId}}",
+  "customerName": "Jane",
+  "customerPhone": "+1234567890",
+  "deliveryAddress": "789 Lane",
+  "items": [{ "menuItemId": "{{menuItemId}}", "name": "Burger", "quantity": 1, "unitPrice": 9.99 }]
+}
+
+# ── 2. View orders ────────────────────────────────────────────
+
+### 2a. Customer's order history → 200 [1 order]
+GET {{baseUrl}}/api/orders/my
+Authorization: Bearer {{customerToken}}
+
+### 2b. Get specific order → 200
+GET {{baseUrl}}/api/orders/{{orderId}}
+Authorization: Bearer {{customerToken}}
+
+### 2c. Restaurant's incoming orders → 200
+GET {{baseUrl}}/api/restaurant-orders/{{restaurantId}}
+Authorization: Bearer {{ownerToken}}
+
+# ── 3. Order lifecycle (restaurant drives) ────────────────────
+
+### 3a. Confirm order (Pending → Confirmed) → 200
+PUT {{baseUrl}}/api/restaurant-orders/{{orderId}}/status
+Content-Type: application/json
+Authorization: Bearer {{ownerToken}}
+
+{
+  "status": 1
+}
+
+### 3b. Start preparing (Confirmed → Preparing) → 200
+PUT {{baseUrl}}/api/restaurant-orders/{{orderId}}/status
+Content-Type: application/json
+Authorization: Bearer {{ownerToken}}
+
+{
+  "status": 2
+}
+
+### 3c. Mark ready for pickup (Preparing → ReadyForPickup) → 200
+PUT {{baseUrl}}/api/restaurant-orders/{{orderId}}/status
+Content-Type: application/json
+Authorization: Bearer {{ownerToken}}
+
+{
+  "status": 3
+}
+
+### 3d. Invalid transition (jump from ReadyForPickup → Delivered) → 409 Conflict
+PUT {{baseUrl}}/api/restaurant-orders/{{orderId}}/status
+Content-Type: application/json
+Authorization: Bearer {{ownerToken}}
+
+{
+  "status": 5
+}
+
+# ── 4. Cancel order tests ─────────────────────────────────────
+
+### 4a. Place a new order to cancel
+# @name cancelableOrder
+POST {{baseUrl}}/api/orders
+Content-Type: application/json
+Authorization: Bearer {{customerToken}}
+
+{
+  "restaurantId": "{{restaurantId}}",
+  "customerName": "Jane Customer",
+  "customerPhone": "+1234567890",
+  "deliveryAddress": "789 Customer Lane",
+  "deliveryNotes": null,
+  "items": [
+    {
+      "menuItemId": "{{menuItemId}}",
+      "name": "Classic Burger",
+      "quantity": 1,
+      "unitPrice": 12.99
+    }
+  ]
+}
+
+@cancelOrderId = PASTE_SECOND_ORDER_ID_HERE
+
+### 4b. Cancel it → 200
+POST {{baseUrl}}/api/orders/{{cancelOrderId}}/cancel
+Authorization: Bearer {{customerToken}}
+
+### 4c. Cancel again → 409 Conflict (already Cancelled)
+POST {{baseUrl}}/api/orders/{{cancelOrderId}}/cancel
+Authorization: Bearer {{customerToken}}
+
+### 4d. Cancel the first order now (in ReadyForPickup) → 409 Conflict
+POST {{baseUrl}}/api/orders/{{orderId}}/cancel
+Authorization: Bearer {{customerToken}}

@@ -1,0 +1,123 @@
+{
+  "Routes": [
+    {
+      "RouteId": "identity-register",
+      "UpstreamPathTemplate": "/api/auth/register",
+      "UpstreamHttpMethod": [ "POST" ],
+      "DownstreamPathTemplate": "/api/auth/register",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [ { "Host": "identity", "Port": 8080 } ],
+      "SwaggerKey": "identity"
+    },
+    {
+      "RouteId": "identity-login",
+      "UpstreamPathTemplate": "/api/auth/login",
+      "UpstreamHttpMethod": [ "POST" ],
+      "DownstreamPathTemplate": "/api/auth/login",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [ { "Host": "identity", "Port": 8080 } ],
+      "SwaggerKey": "identity"
+    },
+    {
+      "RouteId": "identity-refresh",
+      "UpstreamPathTemplate": "/api/auth/refresh",
+      "UpstreamHttpMethod": [ "POST" ],
+      "DownstreamPathTemplate": "/api/auth/refresh",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [ { "Host": "identity", "Port": 8080 } ],
+      "SwaggerKey": "identity"
+    },
+    {
+      "RouteId": "identity-revoke",
+      "UpstreamPathTemplate": "/api/auth/revoke",
+      "UpstreamHttpMethod": [ "POST" ],
+      "DownstreamPathTemplate": "/api/auth/revoke",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [ { "Host": "identity", "Port": 8080 } ],
+      "AuthenticationOptions": { "AuthenticationProviderKey": "Bearer" },
+      "SwaggerKey": "identity"
+    },
+    {
+      "RouteId": "identity-me",
+      "UpstreamPathTemplate": "/api/auth/me",
+      "UpstreamHttpMethod": [ "GET" ],
+      "DownstreamPathTemplate": "/api/auth/me",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [ { "Host": "identity", "Port": 8080 } ],
+      "AuthenticationOptions": { "AuthenticationProviderKey": "Bearer" },
+      "SwaggerKey": "identity"
+    },
+    {
+      "RouteId": "catalog-list-restaurants",
+      "UpstreamPathTemplate": "/api/restaurants",
+      "UpstreamHttpMethod": [ "GET" ],
+      "DownstreamPathTemplate": "/api/restaurants",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [ { "Host": "catalog", "Port": 8080 } ],
+      "SwaggerKey": "catalog"
+    },
+    {
+      "RouteId": "catalog-get-restaurant",
+      "UpstreamPathTemplate": "/api/restaurants/{id}",
+      "UpstreamHttpMethod": [ "GET" ],
+      "DownstreamPathTemplate": "/api/restaurants/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [ { "Host": "catalog", "Port": 8080 } ],
+      "SwaggerKey": "catalog"
+    },
+    {
+      "RouteId": "catalog-owner",
+      "UpstreamPathTemplate": "/api/owner/restaurants{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "DownstreamPathTemplate": "/api/owner/restaurants{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [ { "Host": "catalog", "Port": 8080 } ],
+      "AuthenticationOptions": { "AuthenticationProviderKey": "Bearer" },
+      "RouteClaimsRequirement": { "Role": "RestaurantOwner" },
+      "SwaggerKey": "catalog"
+    },
+    {
+      "RouteId": "order-customer",
+      "UpstreamPathTemplate": "/api/orders{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "DownstreamPathTemplate": "/api/orders{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [ { "Host": "order", "Port": 8080 } ],
+      "AuthenticationOptions": { "AuthenticationProviderKey": "Bearer" },
+      "SwaggerKey": "order"
+    },
+    {
+      "RouteId": "order-restaurant",
+      "UpstreamPathTemplate": "/api/restaurant-orders{everything}",
+      "UpstreamHttpMethod": [ "GET", "PUT" ],
+      "DownstreamPathTemplate": "/api/restaurant-orders{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [ { "Host": "order", "Port": 8080 } ],
+      "AuthenticationOptions": { "AuthenticationProviderKey": "Bearer" },
+      "RouteClaimsRequirement": { "Role": "RestaurantOwner" },
+      "SwaggerKey": "order"
+    },
+    {
+      "RouteId": "delivery",
+      "UpstreamPathTemplate": "/api/deliveries{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT" ],
+      "DownstreamPathTemplate": "/api/deliveries{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [ { "Host": "delivery", "Port": 8080 } ],
+      "AuthenticationOptions": { "AuthenticationProviderKey": "Bearer" },
+      "RouteClaimsRequirement": { "Role": "DeliveryAgent" },
+      "SwaggerKey": "delivery"
+    },
+    {
+      "RouteId": "notification-health",
+      "UpstreamPathTemplate": "/notification/health",
+      "UpstreamHttpMethod": [ "GET" ],
+      "DownstreamPathTemplate": "/health",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [ { "Host": "notification", "Port": 8080 } ]
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:5000"
+  }
+}

@@ -1,0 +1,211 @@
+name: nocapeats
+
+services:
+
+  # ── Infrastructure ──────────────────────────────────────────────────────────
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: nocapeats-sqlserver
+    environment:
+      SA_PASSWORD: "${SQL_SA_PASSWORD}"
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: "Express"
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver-data:/var/opt/mssql
+    healthcheck:
+      test: ["CMD", "/opt/mssql-tools18/bin/sqlcmd", "-S", "localhost",
+             "-U", "sa", "-P", "${SQL_SA_PASSWORD}", "-Q", "SELECT 1",
+             "-C", "-N"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+  rabbitmq:
+    image: rabbitmq:3.13-management
+    container_name: nocapeats-rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: "${RABBITMQ_USER}"
+      RABBITMQ_DEFAULT_PASS: "${RABBITMQ_PASS}"
+    ports:
+      - "5672:5672"    # AMQP
+      - "15672:15672"  # Management UI → http://localhost:15672
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+
+  azurite:
+    image: mcr.microsoft.com/azure-storage/azurite:latest
+    container_name: nocapeats-azurite
+    ports:
+      - "10000:10000"  # Blob
+      - "10001:10001"  # Queue
+      - "10002:10002"  # Table
+    volumes:
+      - azurite-data:/data
+    command: "azurite --loose --blobHost 0.0.0.0 --queueHost 0.0.0.0 --tableHost 0.0.0.0 --location /data"
+
+  # ── Services ────────────────────────────────────────────────────────────────
+
+  identity:
+    build:
+      context: .
+      dockerfile: src/Services/Identity/NoCap.Eats.Identity.API/Dockerfile
+    container_name: nocapeats-identity
+    ports:
+      - "5200:8080"
+    environment:
+      ConnectionStrings__IdentityDb: "Server=sqlserver,1433;Database=NoCap.Identity;User Id=sa;Password=${SQL_SA_PASSWORD};TrustServerCertificate=True;"
+      Jwt__Secret: "${JWT_SECRET}"
+      Jwt__Issuer: "NoCap.Eats.Identity"
+      Jwt__Audience: "NoCap.Eats.Clients"
+      Jwt__AccessTokenExpiryMinutes: "15"
+      RabbitMq__Host: "rabbitmq://rabbitmq"
+      RabbitMq__Username: "${RABBITMQ_USER}"
+      RabbitMq__Password: "${RABBITMQ_PASS}"
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    restart: unless-stopped
+
+  catalog:
+    build:
+      context: .
+      dockerfile: src/Services/Catalog/NoCap.Eats.Catalog.API/Dockerfile
+    container_name: nocapeats-catalog
+    ports:
+      - "5201:8080"
+    environment:
+      ConnectionStrings__CatalogDb: "Server=sqlserver,1433;Database=NoCap.Catalog;User Id=sa;Password=${SQL_SA_PASSWORD};TrustServerCertificate=True;"
+      Jwt__Secret: "${JWT_SECRET}"
+      Jwt__Issuer: "NoCap.Eats.Identity"
+      Jwt__Audience: "NoCap.Eats.Clients"
+      RabbitMq__Host: "rabbitmq://rabbitmq"
+      RabbitMq__Username: "${RABBITMQ_USER}"
+      RabbitMq__Password: "${RABBITMQ_PASS}"
+      AzureStorage__ConnectionString: "DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://azurite:10000/devstoreaccount1;"
+      AzureStorage__ContainerName: "catalog-images"
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      azurite:
+        condition: service_started
+    restart: unless-stopped
+
+  order:
+    build:
+      context: .
+      dockerfile: src/Services/Order/NoCap.Eats.Order.API/Dockerfile
+    container_name: nocapeats-order
+    ports:
+      - "5202:8080"
+    environment:
+      ConnectionStrings__OrderDb: "Server=sqlserver,1433;Database=NoCap.Orders;User Id=sa;Password=${SQL_SA_PASSWORD};TrustServerCertificate=True;"
+      Jwt__Secret: "${JWT_SECRET}"
+      Jwt__Issuer: "NoCap.Eats.Identity"
+      Jwt__Audience: "NoCap.Eats.Clients"
+      RabbitMq__Host: "rabbitmq://rabbitmq"
+      RabbitMq__Username: "${RABBITMQ_USER}"
+      RabbitMq__Password: "${RABBITMQ_PASS}"
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    restart: unless-stopped
+
+  delivery:
+    build:
+      context: .
+      dockerfile: src/Services/Delivery/NoCap.Eats.Delivery.API/Dockerfile
+    container_name: nocapeats-delivery
+    ports:
+      - "5203:8080"
+    environment:
+      ConnectionStrings__DeliveryDb: "Server=sqlserver,1433;Database=NoCap.Delivery;User Id=sa;Password=${SQL_SA_PASSWORD};TrustServerCertificate=True;"
+      Jwt__Secret: "${JWT_SECRET}"
+      Jwt__Issuer: "NoCap.Eats.Identity"
+      Jwt__Audience: "NoCap.Eats.Clients"
+      RabbitMq__Host: "rabbitmq://rabbitmq"
+      RabbitMq__Username: "${RABBITMQ_USER}"
+      RabbitMq__Password: "${RABBITMQ_PASS}"
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    restart: unless-stopped
+
+  notification:
+    build:
+      context: .
+      dockerfile: src/Services/Notification/NoCap.Eats.Notification.API/Dockerfile
+    container_name: nocapeats-notification
+    ports:
+      - "5204:8080"
+    environment:
+      ConnectionStrings__NotificationDb: "Server=sqlserver,1433;Database=NoCap.Notifications;User Id=sa;Password=${SQL_SA_PASSWORD};TrustServerCertificate=True;"
+      RabbitMq__Host: "rabbitmq://rabbitmq"
+      RabbitMq__Username: "${RABBITMQ_USER}"
+      RabbitMq__Password: "${RABBITMQ_PASS}"
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    restart: unless-stopped
+
+  gateway:
+    build:
+      context: .
+      dockerfile: src/Gateway/NoCap.Eats.Gateway/Dockerfile
+    container_name: nocapeats-gateway
+    ports:
+      - "5000:8080"
+    environment:
+      Jwt__Secret: "${JWT_SECRET}"
+      Jwt__Issuer: "NoCap.Eats.Identity"
+      Jwt__Audience: "NoCap.Eats.Clients"
+      # Override SwaggerEndPoints to use container service names
+      SwaggerEndPoints__0__Key: "identity"
+      SwaggerEndPoints__0__Config__0__Name: "Identity API"
+      SwaggerEndPoints__0__Config__0__Version: "v1"
+      SwaggerEndPoints__0__Config__0__Url: "http://identity:8080/swagger/v1/swagger.json"
+      SwaggerEndPoints__1__Key: "catalog"
+      SwaggerEndPoints__1__Config__0__Name: "Catalog API"
+      SwaggerEndPoints__1__Config__0__Version: "v1"
+      SwaggerEndPoints__1__Config__0__Url: "http://catalog:8080/swagger/v1/swagger.json"
+      SwaggerEndPoints__2__Key: "order"
+      SwaggerEndPoints__2__Config__0__Name: "Order API"
+      SwaggerEndPoints__2__Config__0__Version: "v1"
+      SwaggerEndPoints__2__Config__0__Url: "http://order:8080/swagger/v1/swagger.json"
+      SwaggerEndPoints__3__Key: "delivery"
+      SwaggerEndPoints__3__Config__0__Name: "Delivery API"
+      SwaggerEndPoints__3__Config__0__Version: "v1"
+      SwaggerEndPoints__3__Config__0__Url: "http://delivery:8080/swagger/v1/swagger.json"
+    depends_on:
+      - identity
+      - catalog
+      - order
+      - delivery
+      - notification
+    restart: unless-stopped
+
+# ── Volumes ──────────────────────────────────────────────────────────────────
+
+volumes:
+  sqlserver-data:
+  rabbitmq-data:
+  azurite-data:

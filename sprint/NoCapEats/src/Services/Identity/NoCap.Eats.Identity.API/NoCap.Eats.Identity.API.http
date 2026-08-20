@@ -1,0 +1,164 @@
+### ============================================================
+### NoCap Eats — Identity Service Manual Tests
+### Base: http://localhost:5200  (or via gateway :5000)
+### Run requests top-to-bottom in order
+### ============================================================
+
+@baseUrl = http://localhost:5200
+
+# ── 1. Register accounts ─────────────────────────────────────
+
+### 1a. Register Customer
+POST {{baseUrl}}/api/auth/register
+Content-Type: application/json
+
+{
+  "fullName": "Jane Customer",
+  "email": "jane@nocap.com",
+  "password": "Password1",
+  "mobileNumber": "+1234567890",
+  "role": "Customer"
+}
+
+### 1b. Register Restaurant Owner
+POST {{baseUrl}}/api/auth/register
+Content-Type: application/json
+
+{
+  "fullName": "Bob Owner",
+  "email": "bob@nocap.com",
+  "password": "Password1",
+  "mobileNumber": "+0987654321",
+  "role": "RestaurantOwner"
+}
+
+### 1c. Register Delivery Agent
+POST {{baseUrl}}/api/auth/register
+Content-Type: application/json
+
+{
+  "fullName": "Dave Agent",
+  "email": "dave@nocap.com",
+  "password": "Password1",
+  "mobileNumber": "+1122334455",
+  "role": "DeliveryAgent"
+}
+
+# ── 2. Validation error cases ─────────────────────────────────
+
+### 2a. Duplicate email → 409 Conflict
+POST {{baseUrl}}/api/auth/register
+Content-Type: application/json
+
+{
+  "fullName": "Jane Duplicate",
+  "email": "jane@nocap.com",
+  "password": "Password1",
+  "mobileNumber": "+1234567890",
+  "role": "Customer"
+}
+
+### 2b. Weak password → 400 Bad Request
+POST {{baseUrl}}/api/auth/register
+Content-Type: application/json
+
+{
+  "fullName": "Test User",
+  "email": "test@nocap.com",
+  "password": "weak",
+  "mobileNumber": "+1234567890",
+  "role": "Customer"
+}
+
+### 2c. Invalid role → 400 Bad Request
+POST {{baseUrl}}/api/auth/register
+Content-Type: application/json
+
+{
+  "fullName": "Test User",
+  "email": "test2@nocap.com",
+  "password": "Password1",
+  "mobileNumber": "+1234567890",
+  "role": "Hacker"
+}
+
+# ── 3. Login ──────────────────────────────────────────────────
+
+### 3a. Customer login  ← run this, copy tokens below
+# @name customerLogin
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "jane@nocap.com",
+  "password": "Password1"
+}
+
+### 3b. Owner login
+# @name ownerLogin
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "bob@nocap.com",
+  "password": "Password1"
+}
+
+### 3c. Agent login
+# @name agentLogin
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "dave@nocap.com",
+  "password": "Password1"
+}
+
+### 3d. Wrong password → 401
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "jane@nocap.com",
+  "password": "WrongPass1"
+}
+
+# ── 4. Authenticated endpoints ────────────────────────────────
+# Paste token from 3a response here:
+@customerToken = PASTE_CUSTOMER_ACCESS_TOKEN_HERE
+
+### 4a. Get my profile → 200
+GET {{baseUrl}}/api/auth/me
+Authorization: Bearer {{customerToken}}
+
+### 4b. No token → 401
+GET {{baseUrl}}/api/auth/me
+
+# ── 5. Refresh token ──────────────────────────────────────────
+# Paste userId and refreshToken from 3a response:
+@customerId    = PASTE_CUSTOMER_ID_HERE
+@refreshToken  = PASTE_REFRESH_TOKEN_HERE
+
+### 5a. Refresh → 200 new tokens
+POST {{baseUrl}}/api/auth/refresh
+Content-Type: application/json
+
+{
+  "userId": "{{customerId}}",
+  "rawRefreshToken": "{{refreshToken}}"
+}
+
+### 5b. Reuse old refresh token → 401 (token rotation)
+POST {{baseUrl}}/api/auth/refresh
+Content-Type: application/json
+
+{
+  "userId": "{{customerId}}",
+  "rawRefreshToken": "{{refreshToken}}"
+}
+
+# ── 6. Revoke (logout) ────────────────────────────────────────
+
+### 6a. Revoke → 204 No Content
+POST {{baseUrl}}/api/auth/revoke
+Authorization: Bearer {{customerToken}}

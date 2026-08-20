@@ -1,0 +1,257 @@
+﻿# File-by-file documentation index
+
+This index records the purpose of each file in the NoCap Eats solution.
+
+## Root project files
+- .dockerignore — Project asset or configuration item used by the codebase.
+- .env — Project asset or configuration item used by the codebase.
+- .gitignore — Project asset or configuration item used by the codebase.
+- docker-compose.yml — Defines the local infrastructure stack for SQL Server, RabbitMQ, Azurite, and each service container.
+- NoCap.Eats.slnLaunch.user — Project asset or configuration item used by the codebase.
+- NoCap.Eats.slnx — Project asset or configuration item used by the codebase.
+- src\BuildingBlocks\NoCap.Eats.BuildingBlocks.Events\NoCap.Eats.BuildingBlocks.Events.csproj — Project asset or configuration item used by the codebase.
+- src\BuildingBlocks\NoCap.Eats.BuildingBlocks.Events\OrderPlacedEvent.cs — Message contract for cross-service event-driven communication.
+- src\BuildingBlocks\NoCap.Eats.BuildingBlocks.Events\OrderStatusChangedEvent.cs — Message contract for cross-service event-driven communication.
+- src\BuildingBlocks\NoCap.Eats.BuildingBlocks.Events\UserRegisteredEvent.cs — Message contract for cross-service event-driven communication.
+- src\BuildingBlocks\NoCap.Eats.BuildingBlocks.Messaging\Class1.cs — Source file implementing the Class1 functionality for this module.
+- src\BuildingBlocks\NoCap.Eats.BuildingBlocks.Messaging\NoCap.Eats.BuildingBlocks.Messaging.csproj — Project asset or configuration item used by the codebase.
+- src\Gateway\NoCap.Eats.Gateway\appsettings.Development.json — Project asset or configuration item used by the codebase.
+- src\Gateway\NoCap.Eats.Gateway\appsettings.json — Project asset or configuration item used by the codebase.
+- src\Gateway\NoCap.Eats.Gateway\Dockerfile — Project asset or configuration item used by the codebase.
+- src\Gateway\NoCap.Eats.Gateway\NoCap.Eats.Gateway.csproj — Project asset or configuration item used by the codebase.
+- src\Gateway\NoCap.Eats.Gateway\NoCap.Eats.Gateway.http — Project asset or configuration item used by the codebase.
+- src\Gateway\NoCap.Eats.Gateway\ocelot.Docker.json — Project asset or configuration item used by the codebase.
+- src\Gateway\NoCap.Eats.Gateway\ocelot.json — Project asset or configuration item used by the codebase.
+- src\Gateway\NoCap.Eats.Gateway\Program.cs — Starts the application and configures authentication, Swagger, middleware, and service registration.
+- src\Gateway\NoCap.Eats.Gateway\Properties\launchSettings.json — Project asset or configuration item used by the codebase.
+- src\Services\Catalog\NoCap.Eats.Catalog.API\appsettings.Development.json — Project asset or configuration item used by the codebase.
+- src\Services\Catalog\NoCap.Eats.Catalog.API\appsettings.json — Project asset or configuration item used by the codebase.
+- src\Services\Catalog\NoCap.Eats.Catalog.API\Dockerfile — Project asset or configuration item used by the codebase.
+- src\Services\Catalog\NoCap.Eats.Catalog.API\Endpoints\RestaurantEndpoints.cs — Maps and groups the HTTP endpoints exposed by the service.
+- src\Services\Catalog\NoCap.Eats.Catalog.API\Middleware\ExceptionMiddleware.cs — Centralizes request error handling and pipeline behavior.
+- src\Services\Catalog\NoCap.Eats.Catalog.API\NoCap.Eats.Catalog.API.csproj — Project asset or configuration item used by the codebase.
+- src\Services\Catalog\NoCap.Eats.Catalog.API\NoCap.Eats.Catalog.API.csproj.user — Project asset or configuration item used by the codebase.
+- src\Services\Catalog\NoCap.Eats.Catalog.API\NoCap.Eats.Catalog.API.http — Project asset or configuration item used by the codebase.
+- src\Services\Catalog\NoCap.Eats.Catalog.API\Program.cs — Starts the application and configures authentication, Swagger, middleware, and service registration.
+- src\Services\Catalog\NoCap.Eats.Catalog.API\Properties\launchSettings.json — Project asset or configuration item used by the codebase.
+- src\Services\Catalog\NoCap.Eats.Catalog.Application\Behaviours\ValidationBehaviour.cs — Source file implementing the ValidationBehaviour functionality for this module.
+- src\Services\Catalog\NoCap.Eats.Catalog.Application\Class1.cs — Source file implementing the Class1 functionality for this module.
+- src\Services\Catalog\NoCap.Eats.Catalog.Application\Commands\MenuCategory\CreateMenuCategory\CreateMenuCategoryCommand.cs — Command contract for the CreateMenuCategoryCommand workflow used by the application layer and validators.
+- src\Services\Catalog\NoCap.Eats.Catalog.Application\Commands\MenuCategory\CreateMenuCategory\CreateMenuCategoryCommandHandler.cs — Executes the business workflow for CreateMenuCategoryCommandHandler and applies the domain rules.
+- src\Services\Catalog\NoCap.Eats.Catalog.Application\Commands\MenuCategory\CreateMenuCategory\CreateMenuCategoryCommandValidator.cs — Ensures user input for CreateMenuCategoryCommandValidator is valid before the command or query runs.
+- src\Services\Catalog\NoCap.Eats.Catalog.Application\Commands\MenuItem\CreateMenuItem\CreateMenuItemCommand.cs — Command contract for the CreateMenuItemCommand workflow used by the application layer and validators.
+- src\Services\Catalog\NoCap.Eats.Catalog.Application\Commands\MenuItem\CreateMenuItem\CreateMenuItemCommandHandler.cs — Executes the business workflow for CreateMenuItemCommandHandler and applies the domain rules.
+- src\Services\Catalog\NoCap.Eats.Catalog.Application\Commands\MenuItem\CreateMenuItem\CreateMenuItemCommandValidator.cs — Ensures user input for CreateMenuItemCommandValidator is valid before the command or query runs.
+- src\Services\Catalog\NoCap.Eats.Catalog.Application\Commands\MenuItem\UpdateMenuItem\UpdateMenuItemCommand.cs — Command contract for the UpdateMenuItemCommand workflow used by the application layer and validators.
+- src\Services\Catalog\NoCap.Eats.Catalog.Application\Commands\MenuItem\UpdateMenuItem\UpdateMenuItemCommandHandler.cs — Executes the business workflow for UpdateMenuItemCommandHandler and applies the domain rules.
+- src\Services\Catalog\NoCap.Eats.Catalog.Application\Commands\Restaurant\CreateRestaurant\CreateRestaurantCommand.cs — Command contract for the CreateRestaurantCommand workflow used by the application layer and validators.
+- src\Services\Catalog\NoCap.Eats.Catalog.Application\Commands\Restaurant\CreateRestaurant\CreateRestaurantCommandHandler.cs — Executes the business workflow for CreateRestaurantCommandHandler and applies the domain rules.
+- src\Services\Catalog\NoCap.Eats.Catalog.Application\Commands\Restaurant\CreateRestaurant\CreateRestaurantCommandValidator.cs — Ensures user input for CreateRestaurantCommandValidator is valid before the command or query runs.
+- src\Services\Catalog\NoCap.Eats.Catalog.Application\Commands\Restaurant\UpdateRestaurant\UpdateRestaurantCommand.cs — Command contract for the UpdateRestaurantCommand workflow used by the application layer and validators.
+- src\Services\Catalog\NoCap.Eats.Catalog.Application\Commands\Restaurant\UpdateRestaurant\UpdateRestaurantCommandHandler.cs — Executes the business workflow for UpdateRestaurantCommandHandler and applies the domain rules.
+- src\Services\Catalog\NoCap.Eats.Catalog.Application\DependencyInjection.cs — Registers module-specific application and infrastructure dependencies.
+- src\Services\Catalog\NoCap.Eats.Catalog.Application\DTOs\MenuCategoryDto.cs — Data transfer object used by APIs and application services.
+- src\Services\Catalog\NoCap.Eats.Catalog.Application\DTOs\MenuItemDto.cs — Data transfer object used by APIs and application services.
+- src\Services\Catalog\NoCap.Eats.Catalog.Application\DTOs\RestaurantDto.cs — Data transfer object used by APIs and application services.
+- src\Services\Catalog\NoCap.Eats.Catalog.Application\Interfaces\IImageStorageService.cs — Source file implementing the IImageStorageService functionality for this module.
+- src\Services\Catalog\NoCap.Eats.Catalog.Application\Interfaces\IMenuCategoryRepository.cs — Repository implementation used to persist and query the related entity set.
+- src\Services\Catalog\NoCap.Eats.Catalog.Application\Interfaces\IMenuItemRepository.cs — Repository implementation used to persist and query the related entity set.
+- src\Services\Catalog\NoCap.Eats.Catalog.Application\Interfaces\IRestaurantRepository.cs — Repository implementation used to persist and query the related entity set.
+- src\Services\Catalog\NoCap.Eats.Catalog.Application\Mappings\MappingExtensions.cs — Source file implementing the MappingExtensions functionality for this module.
+- src\Services\Catalog\NoCap.Eats.Catalog.Application\NoCap.Eats.Catalog.Application.csproj — Project asset or configuration item used by the codebase.
+- src\Services\Catalog\NoCap.Eats.Catalog.Application\Queries\GetMyRestaurants\GetMyRestaurantsQuery.cs — Query contract for retrieving the GetMyRestaurantsQuery data set.
+- src\Services\Catalog\NoCap.Eats.Catalog.Application\Queries\GetMyRestaurants\GetMyRestaurantsQueryHandler.cs — Processes the GetMyRestaurantsQueryHandler query and returns the result model for API usage.
+- src\Services\Catalog\NoCap.Eats.Catalog.Application\Queries\GetRestaurant\GetRestaurantQuery.cs — Query contract for retrieving the GetRestaurantQuery data set.
+- src\Services\Catalog\NoCap.Eats.Catalog.Application\Queries\GetRestaurant\GetRestaurantQueryHandler.cs — Processes the GetRestaurantQueryHandler query and returns the result model for API usage.
+- src\Services\Catalog\NoCap.Eats.Catalog.Application\Queries\ListRestaurants\ListRestaurantsQuery.cs — Query contract for retrieving the ListRestaurantsQuery data set.
+- src\Services\Catalog\NoCap.Eats.Catalog.Application\Queries\ListRestaurants\ListRestaurantsQueryHandler.cs — Processes the ListRestaurantsQueryHandler query and returns the result model for API usage.
+- src\Services\Catalog\NoCap.Eats.Catalog.Domain\Class1.cs — Source file implementing the Class1 functionality for this module.
+- src\Services\Catalog\NoCap.Eats.Catalog.Domain\Entities\MenuCategory.cs — Source file implementing the MenuCategory functionality for this module.
+- src\Services\Catalog\NoCap.Eats.Catalog.Domain\Entities\MenuItem.cs — Source file implementing the MenuItem functionality for this module.
+- src\Services\Catalog\NoCap.Eats.Catalog.Domain\Entities\Restaurant.cs — Source file implementing the Restaurant functionality for this module.
+- src\Services\Catalog\NoCap.Eats.Catalog.Domain\Enums\RestaurantStatus.cs — Source file implementing the RestaurantStatus functionality for this module.
+- src\Services\Catalog\NoCap.Eats.Catalog.Domain\Exceptions\DomainException.cs — Custom exception used to represent invalid domain state or access rules.
+- src\Services\Catalog\NoCap.Eats.Catalog.Domain\NoCap.Eats.Catalog.Domain.csproj — Project asset or configuration item used by the codebase.
+- src\Services\Catalog\NoCap.Eats.Catalog.Infrastructure\Class1.cs — Source file implementing the Class1 functionality for this module.
+- src\Services\Catalog\NoCap.Eats.Catalog.Infrastructure\DependencyInjection.cs — Registers module-specific application and infrastructure dependencies.
+- src\Services\Catalog\NoCap.Eats.Catalog.Infrastructure\Messaging\Consumers\UserRegisteredConsumer.cs — Consumes RabbitMQ events and triggers downstream service behavior.
+- src\Services\Catalog\NoCap.Eats.Catalog.Infrastructure\NoCap.Eats.Catalog.Infrastructure.csproj — Project asset or configuration item used by the codebase.
+- src\Services\Catalog\NoCap.Eats.Catalog.Infrastructure\Persistence\CatalogDbContext.cs — Entity Framework Core context for the service persistence model.
+- src\Services\Catalog\NoCap.Eats.Catalog.Infrastructure\Persistence\Migrations\20260814124737_InitialSchema.cs — Source file implementing the 20260814124737_InitialSchema functionality for this module.
+- src\Services\Catalog\NoCap.Eats.Catalog.Infrastructure\Persistence\Migrations\20260814124737_InitialSchema.Designer.cs — Generated migration metadata produced by EF Core for schema evolution.
+- src\Services\Catalog\NoCap.Eats.Catalog.Infrastructure\Persistence\Migrations\CatalogDbContextModelSnapshot.cs — EF Core snapshot used to track migration state for the database schema.
+- src\Services\Catalog\NoCap.Eats.Catalog.Infrastructure\Persistence\Repositories\MenuCategoryRepository.cs — Repository implementation used to persist and query the related entity set.
+- src\Services\Catalog\NoCap.Eats.Catalog.Infrastructure\Persistence\Repositories\MenuItemRepository.cs — Repository implementation used to persist and query the related entity set.
+- src\Services\Catalog\NoCap.Eats.Catalog.Infrastructure\Persistence\Repositories\RestaurantRepository.cs — Repository implementation used to persist and query the related entity set.
+- src\Services\Catalog\NoCap.Eats.Catalog.Infrastructure\Services\AzureBlobImageStorageService.cs — Source file implementing the AzureBlobImageStorageService functionality for this module.
+- src\Services\Catalog\NoCap.Eats.Catalog.Infrastructure\Settings\StorageSettings.cs — Configuration model used to bind environment settings into the service.
+- src\Services\Delivery\NoCap.Eats.Delivery.API\appsettings.Development.json — Project asset or configuration item used by the codebase.
+- src\Services\Delivery\NoCap.Eats.Delivery.API\appsettings.json — Project asset or configuration item used by the codebase.
+- src\Services\Delivery\NoCap.Eats.Delivery.API\Dockerfile — Project asset or configuration item used by the codebase.
+- src\Services\Delivery\NoCap.Eats.Delivery.API\Endpoints\DeliveryEndpoints.cs — Maps and groups the HTTP endpoints exposed by the service.
+- src\Services\Delivery\NoCap.Eats.Delivery.API\Middleware\ExceptionMiddleware.cs — Centralizes request error handling and pipeline behavior.
+- src\Services\Delivery\NoCap.Eats.Delivery.API\NoCap.Eats.Delivery.API.csproj — Project asset or configuration item used by the codebase.
+- src\Services\Delivery\NoCap.Eats.Delivery.API\NoCap.Eats.Delivery.API.csproj.user — Project asset or configuration item used by the codebase.
+- src\Services\Delivery\NoCap.Eats.Delivery.API\NoCap.Eats.Delivery.API.http — Project asset or configuration item used by the codebase.
+- src\Services\Delivery\NoCap.Eats.Delivery.API\Program.cs — Starts the application and configures authentication, Swagger, middleware, and service registration.
+- src\Services\Delivery\NoCap.Eats.Delivery.API\Properties\launchSettings.json — Project asset or configuration item used by the codebase.
+- src\Services\Delivery\NoCap.Eats.Delivery.Application\Behaviours\ValidationBehaviour.cs — Source file implementing the ValidationBehaviour functionality for this module.
+- src\Services\Delivery\NoCap.Eats.Delivery.Application\Class1.cs — Source file implementing the Class1 functionality for this module.
+- src\Services\Delivery\NoCap.Eats.Delivery.Application\Commands\AcceptDelivery\AcceptDeliveryCommand.cs — Command contract for the AcceptDeliveryCommand workflow used by the application layer and validators.
+- src\Services\Delivery\NoCap.Eats.Delivery.Application\Commands\AcceptDelivery\AcceptDeliveryCommandHandler.cs — Executes the business workflow for AcceptDeliveryCommandHandler and applies the domain rules.
+- src\Services\Delivery\NoCap.Eats.Delivery.Application\Commands\UpdateDeliveryStatus\UpdateDeliveryStatusCommand.cs — Command contract for the UpdateDeliveryStatusCommand workflow used by the application layer and validators.
+- src\Services\Delivery\NoCap.Eats.Delivery.Application\Commands\UpdateDeliveryStatus\UpdateDeliveryStatusCommandHandler.cs — Executes the business workflow for UpdateDeliveryStatusCommandHandler and applies the domain rules.
+- src\Services\Delivery\NoCap.Eats.Delivery.Application\DependencyInjection.cs — Registers module-specific application and infrastructure dependencies.
+- src\Services\Delivery\NoCap.Eats.Delivery.Application\DTOs\DeliveryDto.cs — Data transfer object used by APIs and application services.
+- src\Services\Delivery\NoCap.Eats.Delivery.Application\Interfaces\IDeliveryRepository.cs — Repository implementation used to persist and query the related entity set.
+- src\Services\Delivery\NoCap.Eats.Delivery.Application\Mappings\MappingExtensions.cs — Source file implementing the MappingExtensions functionality for this module.
+- src\Services\Delivery\NoCap.Eats.Delivery.Application\NoCap.Eats.Delivery.Application.csproj — Project asset or configuration item used by the codebase.
+- src\Services\Delivery\NoCap.Eats.Delivery.Application\Queries\GetMyDeliveries\GetMyDeliveriesQuery.cs — Query contract for retrieving the GetMyDeliveriesQuery data set.
+- src\Services\Delivery\NoCap.Eats.Delivery.Application\Queries\GetMyDeliveries\GetMyDeliveriesQueryHandler.cs — Processes the GetMyDeliveriesQueryHandler query and returns the result model for API usage.
+- src\Services\Delivery\NoCap.Eats.Delivery.Application\Queries\GetPendingDeliveries\GetPendingDeliveriesQuery.cs — Query contract for retrieving the GetPendingDeliveriesQuery data set.
+- src\Services\Delivery\NoCap.Eats.Delivery.Application\Queries\GetPendingDeliveries\GetPendingDeliveriesQueryHandler.cs — Processes the GetPendingDeliveriesQueryHandler query and returns the result model for API usage.
+- src\Services\Delivery\NoCap.Eats.Delivery.Domain\Class1.cs — Source file implementing the Class1 functionality for this module.
+- src\Services\Delivery\NoCap.Eats.Delivery.Domain\Entities\Delivery.cs — Source file implementing the Delivery functionality for this module.
+- src\Services\Delivery\NoCap.Eats.Delivery.Domain\Enums\DeliveryStatus.cs — Source file implementing the DeliveryStatus functionality for this module.
+- src\Services\Delivery\NoCap.Eats.Delivery.Domain\Exceptions\DomainException.cs — Custom exception used to represent invalid domain state or access rules.
+- src\Services\Delivery\NoCap.Eats.Delivery.Domain\NoCap.Eats.Delivery.Domain.csproj — Project asset or configuration item used by the codebase.
+- src\Services\Delivery\NoCap.Eats.Delivery.Infrastructure\Class1.cs — Source file implementing the Class1 functionality for this module.
+- src\Services\Delivery\NoCap.Eats.Delivery.Infrastructure\DependencyInjection.cs — Registers module-specific application and infrastructure dependencies.
+- src\Services\Delivery\NoCap.Eats.Delivery.Infrastructure\Messaging\Consumers\OrderPlacedConsumer.cs — Consumes RabbitMQ events and triggers downstream service behavior.
+- src\Services\Delivery\NoCap.Eats.Delivery.Infrastructure\NoCap.Eats.Delivery.Infrastructure.csproj — Project asset or configuration item used by the codebase.
+- src\Services\Delivery\NoCap.Eats.Delivery.Infrastructure\Persistence\DeliveryDbContext.cs — Entity Framework Core context for the service persistence model.
+- src\Services\Delivery\NoCap.Eats.Delivery.Infrastructure\Persistence\Migrations\20260816112601_InitialSchema.cs — Source file implementing the 20260816112601_InitialSchema functionality for this module.
+- src\Services\Delivery\NoCap.Eats.Delivery.Infrastructure\Persistence\Migrations\20260816112601_InitialSchema.Designer.cs — Generated migration metadata produced by EF Core for schema evolution.
+- src\Services\Delivery\NoCap.Eats.Delivery.Infrastructure\Persistence\Migrations\DeliveryDbContextModelSnapshot.cs — EF Core snapshot used to track migration state for the database schema.
+- src\Services\Delivery\NoCap.Eats.Delivery.Infrastructure\Persistence\Repositories\DeliveryRepository.cs — Repository implementation used to persist and query the related entity set.
+- src\Services\Identity\NoCap.Eats.Identity.API\appsettings.Development.json — Project asset or configuration item used by the codebase.
+- src\Services\Identity\NoCap.Eats.Identity.API\appsettings.json — Project asset or configuration item used by the codebase.
+- src\Services\Identity\NoCap.Eats.Identity.API\Dockerfile — Project asset or configuration item used by the codebase.
+- src\Services\Identity\NoCap.Eats.Identity.API\Endpoints\AuthEndpoints.cs — Maps and groups the HTTP endpoints exposed by the service.
+- src\Services\Identity\NoCap.Eats.Identity.API\Middleware\ExceptionMiddleware.cs — Centralizes request error handling and pipeline behavior.
+- src\Services\Identity\NoCap.Eats.Identity.API\NoCap.Eats.Identity.API.csproj — Project asset or configuration item used by the codebase.
+- src\Services\Identity\NoCap.Eats.Identity.API\NoCap.Eats.Identity.API.csproj.user — Project asset or configuration item used by the codebase.
+- src\Services\Identity\NoCap.Eats.Identity.API\NoCap.Eats.Identity.API.http — Project asset or configuration item used by the codebase.
+- src\Services\Identity\NoCap.Eats.Identity.API\Program.cs — Starts the application and configures authentication, Swagger, middleware, and service registration.
+- src\Services\Identity\NoCap.Eats.Identity.API\Properties\launchSettings.json — Project asset or configuration item used by the codebase.
+- src\Services\Identity\NoCap.Eats.Identity.Application\Behaviours\ValidationBehaviour.cs — Source file implementing the ValidationBehaviour functionality for this module.
+- src\Services\Identity\NoCap.Eats.Identity.Application\Commands\Login\LoginCommand.cs — Command contract for the LoginCommand workflow used by the application layer and validators.
+- src\Services\Identity\NoCap.Eats.Identity.Application\Commands\Login\LoginCommandHandler.cs — Executes the business workflow for LoginCommandHandler and applies the domain rules.
+- src\Services\Identity\NoCap.Eats.Identity.Application\Commands\Login\LoginCommandValidator.cs — Ensures user input for LoginCommandValidator is valid before the command or query runs.
+- src\Services\Identity\NoCap.Eats.Identity.Application\Commands\RefreshToken\RefreshTokenCommand.cs — Command contract for the RefreshTokenCommand workflow used by the application layer and validators.
+- src\Services\Identity\NoCap.Eats.Identity.Application\Commands\RefreshToken\RefreshTokenCommandHandler.cs — Executes the business workflow for RefreshTokenCommandHandler and applies the domain rules.
+- src\Services\Identity\NoCap.Eats.Identity.Application\Commands\RefreshToken\RefreshTokenCommandValidator.cs — Ensures user input for RefreshTokenCommandValidator is valid before the command or query runs.
+- src\Services\Identity\NoCap.Eats.Identity.Application\Commands\Register\RegisterCommand.cs — Command contract for the RegisterCommand workflow used by the application layer and validators.
+- src\Services\Identity\NoCap.Eats.Identity.Application\Commands\Register\RegisterCommandHandler.cs — Executes the business workflow for RegisterCommandHandler and applies the domain rules.
+- src\Services\Identity\NoCap.Eats.Identity.Application\Commands\Register\RegisterCommandValidator.cs — Ensures user input for RegisterCommandValidator is valid before the command or query runs.
+- src\Services\Identity\NoCap.Eats.Identity.Application\Commands\RevokeToken\RevokeTokenCommand.cs — Command contract for the RevokeTokenCommand workflow used by the application layer and validators.
+- src\Services\Identity\NoCap.Eats.Identity.Application\Commands\RevokeToken\RevokeTokenCommandHandler.cs — Executes the business workflow for RevokeTokenCommandHandler and applies the domain rules.
+- src\Services\Identity\NoCap.Eats.Identity.Application\DependencyInjection.cs — Registers module-specific application and infrastructure dependencies.
+- src\Services\Identity\NoCap.Eats.Identity.Application\DTOs\AuthResponse.cs — Source file implementing the AuthResponse functionality for this module.
+- src\Services\Identity\NoCap.Eats.Identity.Application\DTOs\UserDto.cs — Data transfer object used by APIs and application services.
+- src\Services\Identity\NoCap.Eats.Identity.Application\Interfaces\IRefreshTokenRepository.cs — Repository implementation used to persist and query the related entity set.
+- src\Services\Identity\NoCap.Eats.Identity.Application\Interfaces\ITokenService.cs — Source file implementing the ITokenService functionality for this module.
+- src\Services\Identity\NoCap.Eats.Identity.Application\Interfaces\IUserRepository.cs — Repository implementation used to persist and query the related entity set.
+- src\Services\Identity\NoCap.Eats.Identity.Application\NoCap.Eats.Identity.Application.csproj — Project asset or configuration item used by the codebase.
+- src\Services\Identity\NoCap.Eats.Identity.Application\Queries\GetCurrentUser\GetCurrentUserQuery.cs — Query contract for retrieving the GetCurrentUserQuery data set.
+- src\Services\Identity\NoCap.Eats.Identity.Application\Queries\GetCurrentUser\GetCurrentUserQueryHandler.cs — Processes the GetCurrentUserQueryHandler query and returns the result model for API usage.
+- src\Services\Identity\NoCap.Eats.Identity.Domain\Entities\AppUser.cs — Source file implementing the AppUser functionality for this module.
+- src\Services\Identity\NoCap.Eats.Identity.Domain\Entities\RefreshToken.cs — Source file implementing the RefreshToken functionality for this module.
+- src\Services\Identity\NoCap.Eats.Identity.Domain\Enums\UserRole.cs — Source file implementing the UserRole functionality for this module.
+- src\Services\Identity\NoCap.Eats.Identity.Domain\Exceptions\DomainException.cs — Custom exception used to represent invalid domain state or access rules.
+- src\Services\Identity\NoCap.Eats.Identity.Domain\NoCap.Eats.Identity.Domain.csproj — Project asset or configuration item used by the codebase.
+- src\Services\Identity\NoCap.Eats.Identity.Infrastructure\DependencyInjection.cs — Registers module-specific application and infrastructure dependencies.
+- src\Services\Identity\NoCap.Eats.Identity.Infrastructure\NoCap.Eats.Identity.Infrastructure.csproj — Project asset or configuration item used by the codebase.
+- src\Services\Identity\NoCap.Eats.Identity.Infrastructure\Persistence\IdentityDbContext.cs — Entity Framework Core context for the service persistence model.
+- src\Services\Identity\NoCap.Eats.Identity.Infrastructure\Persistence\IdentityDbSeeder.cs — Source file implementing the IdentityDbSeeder functionality for this module.
+- src\Services\Identity\NoCap.Eats.Identity.Infrastructure\Persistence\Migrations\20260814053244_InitialSchema.cs — Source file implementing the 20260814053244_InitialSchema functionality for this module.
+- src\Services\Identity\NoCap.Eats.Identity.Infrastructure\Persistence\Migrations\20260814053244_InitialSchema.Designer.cs — Generated migration metadata produced by EF Core for schema evolution.
+- src\Services\Identity\NoCap.Eats.Identity.Infrastructure\Persistence\Migrations\IdentityDbContextModelSnapshot.cs — EF Core snapshot used to track migration state for the database schema.
+- src\Services\Identity\NoCap.Eats.Identity.Infrastructure\Persistence\Repositories\RefreshTokenRepository.cs — Repository implementation used to persist and query the related entity set.
+- src\Services\Identity\NoCap.Eats.Identity.Infrastructure\Persistence\Repositories\UserRepository.cs — Repository implementation used to persist and query the related entity set.
+- src\Services\Identity\NoCap.Eats.Identity.Infrastructure\Services\TokenService.cs — Source file implementing the TokenService functionality for this module.
+- src\Services\Identity\NoCap.Eats.Identity.Infrastructure\Settings\JwtSettings.cs — Configuration model used to bind environment settings into the service.
+- src\Services\Notification\NoCap.Eats.Notification.API\appsettings.Development.json — Project asset or configuration item used by the codebase.
+- src\Services\Notification\NoCap.Eats.Notification.API\appsettings.json — Project asset or configuration item used by the codebase.
+- src\Services\Notification\NoCap.Eats.Notification.API\Dockerfile — Project asset or configuration item used by the codebase.
+- src\Services\Notification\NoCap.Eats.Notification.API\NoCap.Eats.Notification.API.csproj — Project asset or configuration item used by the codebase.
+- src\Services\Notification\NoCap.Eats.Notification.API\NoCap.Eats.Notification.API.csproj.user — Project asset or configuration item used by the codebase.
+- src\Services\Notification\NoCap.Eats.Notification.API\NoCap.Eats.Notification.API.http — Project asset or configuration item used by the codebase.
+- src\Services\Notification\NoCap.Eats.Notification.API\Program.cs — Starts the application and configures authentication, Swagger, middleware, and service registration.
+- src\Services\Notification\NoCap.Eats.Notification.API\Properties\launchSettings.json — Project asset or configuration item used by the codebase.
+- src\Services\Notification\NoCap.Eats.Notification.Application\Class1.cs — Source file implementing the Class1 functionality for this module.
+- src\Services\Notification\NoCap.Eats.Notification.Application\Interfaces\IEmailSender.cs — Source file implementing the IEmailSender functionality for this module.
+- src\Services\Notification\NoCap.Eats.Notification.Application\Interfaces\INotificationLogRepository.cs — Repository implementation used to persist and query the related entity set.
+- src\Services\Notification\NoCap.Eats.Notification.Application\NoCap.Eats.Notification.Application.csproj — Project asset or configuration item used by the codebase.
+- src\Services\Notification\NoCap.Eats.Notification.Application\Templates\EmailTemplates.cs — Source file implementing the EmailTemplates functionality for this module.
+- src\Services\Notification\NoCap.Eats.Notification.Domain\Class1.cs — Source file implementing the Class1 functionality for this module.
+- src\Services\Notification\NoCap.Eats.Notification.Domain\Entities\NotificationLog.cs — Source file implementing the NotificationLog functionality for this module.
+- src\Services\Notification\NoCap.Eats.Notification.Domain\Enums\NotificationChannel.cs — Source file implementing the NotificationChannel functionality for this module.
+- src\Services\Notification\NoCap.Eats.Notification.Domain\NoCap.Eats.Notification.Domain.csproj — Project asset or configuration item used by the codebase.
+- src\Services\Notification\NoCap.Eats.Notification.Infrastructure\Class1.cs — Source file implementing the Class1 functionality for this module.
+- src\Services\Notification\NoCap.Eats.Notification.Infrastructure\DependencyInjection.cs — Registers module-specific application and infrastructure dependencies.
+- src\Services\Notification\NoCap.Eats.Notification.Infrastructure\Email\ConsoleEmailSender.cs — Source file implementing the ConsoleEmailSender functionality for this module.
+- src\Services\Notification\NoCap.Eats.Notification.Infrastructure\Messaging\Consumers\OrderPlacedConsumer.cs — Consumes RabbitMQ events and triggers downstream service behavior.
+- src\Services\Notification\NoCap.Eats.Notification.Infrastructure\Messaging\Consumers\OrderStatusChangedConsumer.cs — Consumes RabbitMQ events and triggers downstream service behavior.
+- src\Services\Notification\NoCap.Eats.Notification.Infrastructure\Messaging\Consumers\UserRegisteredConsumer.cs — Consumes RabbitMQ events and triggers downstream service behavior.
+- src\Services\Notification\NoCap.Eats.Notification.Infrastructure\NoCap.Eats.Notification.Infrastructure.csproj — Project asset or configuration item used by the codebase.
+- src\Services\Notification\NoCap.Eats.Notification.Infrastructure\Persistence\Migrations\20260816121259_InitialSchema.cs — Source file implementing the 20260816121259_InitialSchema functionality for this module.
+- src\Services\Notification\NoCap.Eats.Notification.Infrastructure\Persistence\Migrations\20260816121259_InitialSchema.Designer.cs — Generated migration metadata produced by EF Core for schema evolution.
+- src\Services\Notification\NoCap.Eats.Notification.Infrastructure\Persistence\Migrations\NotificationDbContextModelSnapshot.cs — EF Core snapshot used to track migration state for the database schema.
+- src\Services\Notification\NoCap.Eats.Notification.Infrastructure\Persistence\NotificationDbContext.cs — Entity Framework Core context for the service persistence model.
+- src\Services\Notification\NoCap.Eats.Notification.Infrastructure\Persistence\Repositories\NotificationLogRepository.cs — Repository implementation used to persist and query the related entity set.
+- src\Services\Order\NoCap.Eats.Order.API\appsettings.Development.json — Project asset or configuration item used by the codebase.
+- src\Services\Order\NoCap.Eats.Order.API\appsettings.json — Project asset or configuration item used by the codebase.
+- src\Services\Order\NoCap.Eats.Order.API\Dockerfile — Project asset or configuration item used by the codebase.
+- src\Services\Order\NoCap.Eats.Order.API\Endpoints\OrderEndpoints.cs — Maps and groups the HTTP endpoints exposed by the service.
+- src\Services\Order\NoCap.Eats.Order.API\Middleware\ExceptionMiddleware.cs — Centralizes request error handling and pipeline behavior.
+- src\Services\Order\NoCap.Eats.Order.API\NoCap.Eats.Order.API.csproj — Project asset or configuration item used by the codebase.
+- src\Services\Order\NoCap.Eats.Order.API\NoCap.Eats.Order.API.csproj.user — Project asset or configuration item used by the codebase.
+- src\Services\Order\NoCap.Eats.Order.API\NoCap.Eats.Order.API.http — Project asset or configuration item used by the codebase.
+- src\Services\Order\NoCap.Eats.Order.API\Program.cs — Starts the application and configures authentication, Swagger, middleware, and service registration.
+- src\Services\Order\NoCap.Eats.Order.API\Properties\launchSettings.json — Project asset or configuration item used by the codebase.
+- src\Services\Order\NoCap.Eats.Order.Application\Behaviours\ValidationBehaviour.cs — Source file implementing the ValidationBehaviour functionality for this module.
+- src\Services\Order\NoCap.Eats.Order.Application\Class1.cs — Source file implementing the Class1 functionality for this module.
+- src\Services\Order\NoCap.Eats.Order.Application\Commands\CancelOrder\CancelOrderCommand.cs — Command contract for the CancelOrderCommand workflow used by the application layer and validators.
+- src\Services\Order\NoCap.Eats.Order.Application\Commands\CancelOrder\CancelOrderCommandHandler.cs — Executes the business workflow for CancelOrderCommandHandler and applies the domain rules.
+- src\Services\Order\NoCap.Eats.Order.Application\Commands\PlaceOrder\PlaceOrderCommand.cs — Command contract for the PlaceOrderCommand workflow used by the application layer and validators.
+- src\Services\Order\NoCap.Eats.Order.Application\Commands\PlaceOrder\PlaceOrderCommandHandler.cs — Executes the business workflow for PlaceOrderCommandHandler and applies the domain rules.
+- src\Services\Order\NoCap.Eats.Order.Application\Commands\PlaceOrder\PlaceOrderCommandValidator.cs — Ensures user input for PlaceOrderCommandValidator is valid before the command or query runs.
+- src\Services\Order\NoCap.Eats.Order.Application\Commands\UpdateOrderStatus\UpdateOrderStatusCommand.cs — Command contract for the UpdateOrderStatusCommand workflow used by the application layer and validators.
+- src\Services\Order\NoCap.Eats.Order.Application\Commands\UpdateOrderStatus\UpdateOrderStatusCommandHandler.cs — Executes the business workflow for UpdateOrderStatusCommandHandler and applies the domain rules.
+- src\Services\Order\NoCap.Eats.Order.Application\DependencyInjection.cs — Registers module-specific application and infrastructure dependencies.
+- src\Services\Order\NoCap.Eats.Order.Application\DTOs\OrderDto.cs — Data transfer object used by APIs and application services.
+- src\Services\Order\NoCap.Eats.Order.Application\Interfaces\IOrderRepository.cs — Repository implementation used to persist and query the related entity set.
+- src\Services\Order\NoCap.Eats.Order.Application\Mappings\MappingExtensions.cs — Source file implementing the MappingExtensions functionality for this module.
+- src\Services\Order\NoCap.Eats.Order.Application\NoCap.Eats.Order.Application.csproj — Project asset or configuration item used by the codebase.
+- src\Services\Order\NoCap.Eats.Order.Application\Queries\GetMyOrders\GetMyOrdersQuery.cs — Query contract for retrieving the GetMyOrdersQuery data set.
+- src\Services\Order\NoCap.Eats.Order.Application\Queries\GetMyOrders\GetMyOrdersQueryHandler.cs — Processes the GetMyOrdersQueryHandler query and returns the result model for API usage.
+- src\Services\Order\NoCap.Eats.Order.Application\Queries\GetOrder\GetOrderQuery.cs — Query contract for retrieving the GetOrderQuery data set.
+- src\Services\Order\NoCap.Eats.Order.Application\Queries\GetOrder\GetOrderQueryHandler.cs — Processes the GetOrderQueryHandler query and returns the result model for API usage.
+- src\Services\Order\NoCap.Eats.Order.Application\Queries\GetRestaurantOrders\GetRestaurantOrdersQuery.cs — Query contract for retrieving the GetRestaurantOrdersQuery data set.
+- src\Services\Order\NoCap.Eats.Order.Application\Queries\GetRestaurantOrders\GetRestaurantOrdersQueryHandler.cs — Processes the GetRestaurantOrdersQueryHandler query and returns the result model for API usage.
+- src\Services\Order\NoCap.Eats.Order.Domain\Class1.cs — Source file implementing the Class1 functionality for this module.
+- src\Services\Order\NoCap.Eats.Order.Domain\Entities\Order.cs — Source file implementing the Order functionality for this module.
+- src\Services\Order\NoCap.Eats.Order.Domain\Entities\OrderItem.cs — Source file implementing the OrderItem functionality for this module.
+- src\Services\Order\NoCap.Eats.Order.Domain\Enums\OrderStatus.cs — Source file implementing the OrderStatus functionality for this module.
+- src\Services\Order\NoCap.Eats.Order.Domain\Exceptions\DomainException.cs — Custom exception used to represent invalid domain state or access rules.
+- src\Services\Order\NoCap.Eats.Order.Domain\NoCap.Eats.Order.Domain.csproj — Project asset or configuration item used by the codebase.
+- src\Services\Order\NoCap.Eats.Order.Infrastructure\Class1.cs — Source file implementing the Class1 functionality for this module.
+- src\Services\Order\NoCap.Eats.Order.Infrastructure\DependencyInjection.cs — Registers module-specific application and infrastructure dependencies.
+- src\Services\Order\NoCap.Eats.Order.Infrastructure\NoCap.Eats.Order.Infrastructure.csproj — Project asset or configuration item used by the codebase.
+- src\Services\Order\NoCap.Eats.Order.Infrastructure\Persistence\Migrations\20260816111735_InitialSchema.cs — Source file implementing the 20260816111735_InitialSchema functionality for this module.
+- src\Services\Order\NoCap.Eats.Order.Infrastructure\Persistence\Migrations\20260816111735_InitialSchema.Designer.cs — Generated migration metadata produced by EF Core for schema evolution.
+- src\Services\Order\NoCap.Eats.Order.Infrastructure\Persistence\Migrations\OrderDbContextModelSnapshot.cs — EF Core snapshot used to track migration state for the database schema.
+- src\Services\Order\NoCap.Eats.Order.Infrastructure\Persistence\OrderDbContext.cs — Entity Framework Core context for the service persistence model.
+- src\Services\Order\NoCap.Eats.Order.Infrastructure\Persistence\Repositories\OrderRepository.cs — Repository implementation used to persist and query the related entity set.
+- tests\Catalog\NoCap.Eats.Catalog.Tests\CatalogManualTests.cs — Source file implementing the CatalogManualTests functionality for this module.
+- tests\Catalog\NoCap.Eats.Catalog.Tests\GlobalUsings.cs — Source file implementing the GlobalUsings functionality for this module.
+- tests\Catalog\NoCap.Eats.Catalog.Tests\NoCap.Eats.Catalog.Tests.csproj — Project asset or configuration item used by the codebase.
+- tests\Identity\NoCap.Eats.Identity.Tests\Commands\LoginCommandHandlerTests.cs — Source file implementing the LoginCommandHandlerTests functionality for this module.
+- tests\Identity\NoCap.Eats.Identity.Tests\Commands\RegisterCommandHandlerTests.cs — Source file implementing the RegisterCommandHandlerTests functionality for this module.
+- tests\Identity\NoCap.Eats.Identity.Tests\Commands\RevokeTokenCommandHandlerTests.cs — Source file implementing the RevokeTokenCommandHandlerTests functionality for this module.
+- tests\Identity\NoCap.Eats.Identity.Tests\Domain\AppUserTests.cs — Source file implementing the AppUserTests functionality for this module.
+- tests\Identity\NoCap.Eats.Identity.Tests\GlobalUsings.cs — Source file implementing the GlobalUsings functionality for this module.
+- tests\Identity\NoCap.Eats.Identity.Tests\NoCap.Eats.Identity.Tests.csproj — Project asset or configuration item used by the codebase.
+- tests\Identity\NoCap.Eats.Identity.Tests\Validators\RegisterCommandValidatorTests.cs — Source file implementing the RegisterCommandValidatorTests functionality for this module.
+

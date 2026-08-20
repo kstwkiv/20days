@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MultiLevel")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+be064ded3e18d11c4bcb0b391d45adbf0ece6755")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2386dd9752a79ea14c2e5732901c08c87e54f594")]
 [assembly: System.Reflection.AssemblyProductAttribute("MultiLevel")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MultiLevel")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,0 +1,50 @@
+<!--
+Theory:
+The test project is the entry point for verifying Catalog behavior in isolation from the API and infrastructure layers.
+Summary:
+This configuration tells .NET that this project is a unit-test project for the Catalog domain and application contracts.
+-->
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+  Theory:
+  A .NET test project must declare the target framework and the compile-time conventions used by the test code.
+  Summary:
+  The project targets net10.0 and enables nullable and implicit usings for cleaner, safer test code.
+  -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <!--
+  Theory:
+  Unit tests should be able to reference the real Catalog application and domain assemblies without building the whole solution.
+  Summary:
+  These project references make the domain rules and application contracts available during test execution.
+  -->
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\src\Services\Catalog\NoCap.Eats.Catalog.Application\NoCap.Eats.Catalog.Application.csproj" />
+    <ProjectReference Include="..\..\..\src\Services\Catalog\NoCap.Eats.Catalog.Domain\NoCap.Eats.Catalog.Domain.csproj" />
+  </ItemGroup>
+
+  <!--
+  Theory:
+  A test suite needs fluent assertion APIs, mocking support, and the xUnit runner to execute test code reliably.
+  Summary:
+  These package references provide the assertion library, test framework, and .NET test host required by the project.
+  -->
+  <ItemGroup>
+    <PackageReference Include="FluentAssertions" Version="7.2.0" />
+    <PackageReference Include="NSubstitute" Version="5.3.0" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+  </ItemGroup>
+
+</Project>

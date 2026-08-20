@@ -1,0 +1,171 @@
+### ============================================================
+### NoCap Eats — Catalog Service Manual Tests
+### Base: http://localhost:5201  (or via gateway :5000)
+### Prerequisite: run Identity tests first, get owner token
+### ============================================================
+
+@baseUrl = http://localhost:5201
+
+# Paste RestaurantOwner access token from Identity login:
+@ownerToken = PASTE_OWNER_ACCESS_TOKEN_HERE
+
+# ── 1. Public browsing (no auth) ──────────────────────────────
+
+### 1a. List restaurants — empty at start → 200 []
+GET {{baseUrl}}/api/restaurants
+
+### 1b. List with city filter
+GET {{baseUrl}}/api/restaurants?city=London
+
+### 1c. Get non-existent restaurant → 404
+GET {{baseUrl}}/api/restaurants/00000000-0000-0000-0000-000000000001
+
+# ── 2. Create restaurant (owner auth) ────────────────────────
+
+### 2a. Create restaurant → 201
+# @name createRestaurant
+POST {{baseUrl}}/api/owner/restaurants
+Content-Type: application/json
+Authorization: Bearer {{ownerToken}}
+
+{
+  "name": "Bob's Burgers",
+  "description": "Best burgers in town",
+  "address": "123 Main Street",
+  "city": "London",
+  "phone": "+44123456789",
+  "cuisineType": "American"
+}
+
+### Store restaurant ID from response:
+@restaurantId = PASTE_RESTAURANT_ID_HERE
+
+### 2b. No auth → 401
+POST {{baseUrl}}/api/owner/restaurants
+Content-Type: application/json
+
+{
+  "name": "Sneaky Restaurant",
+  "description": "desc",
+  "address": "addr",
+  "city": "city",
+  "phone": "+1234567890",
+  "cuisineType": null
+}
+
+### 2c. Missing required field → 400
+POST {{baseUrl}}/api/owner/restaurants
+Content-Type: application/json
+Authorization: Bearer {{ownerToken}}
+
+{
+  "name": "",
+  "description": "desc",
+  "address": "addr",
+  "city": "city",
+  "phone": "+1234567890"
+}
+
+# ── 3. View created restaurant ────────────────────────────────
+
+### 3a. List owner's restaurants → 200 [1 restaurant]
+GET {{baseUrl}}/api/owner/restaurants
+Authorization: Bearer {{ownerToken}}
+
+### 3b. Get public detail → 404 (still PendingApproval, not Active)
+GET {{baseUrl}}/api/restaurants/{{restaurantId}}
+
+# ── 4. Add menu categories ────────────────────────────────────
+
+### 4a. Add "Burgers" category → 201
+# @name createCategory
+POST {{baseUrl}}/api/owner/restaurants/{{restaurantId}}/categories
+Content-Type: application/json
+Authorization: Bearer {{ownerToken}}
+
+{
+  "name": "Burgers",
+  "description": "Our signature burgers",
+  "sortOrder": 1
+}
+
+### Store category ID:
+@categoryId = PASTE_CATEGORY_ID_HERE
+
+### 4b. Add "Sides" category → 201
+POST {{baseUrl}}/api/owner/restaurants/{{restaurantId}}/categories
+Content-Type: application/json
+Authorization: Bearer {{ownerToken}}
+
+{
+  "name": "Sides",
+  "description": "Fries, onion rings, salads",
+  "sortOrder": 2
+}
+
+# ── 5. Add menu items ─────────────────────────────────────────
+
+### 5a. Add "Classic Burger" → 201
+# @name createItem
+POST {{baseUrl}}/api/owner/restaurants/{{restaurantId}}/categories/{{categoryId}}/items
+Content-Type: application/json
+Authorization: Bearer {{ownerToken}}
+
+{
+  "name": "Classic Burger",
+  "description": "Beef patty, lettuce, tomato, cheese",
+  "price": 9.99
+}
+
+### Store menu item ID:
+@menuItemId = PASTE_MENU_ITEM_ID_HERE
+
+### 5b. Add "Cheeseburger" → 201
+POST {{baseUrl}}/api/owner/restaurants/{{restaurantId}}/categories/{{categoryId}}/items
+Content-Type: application/json
+Authorization: Bearer {{ownerToken}}
+
+{
+  "name": "Cheeseburger",
+  "description": "Double cheese, special sauce",
+  "price": 11.99
+}
+
+### 5c. Negative price → 400
+POST {{baseUrl}}/api/owner/restaurants/{{restaurantId}}/categories/{{categoryId}}/items
+Content-Type: application/json
+Authorization: Bearer {{ownerToken}}
+
+{
+  "name": "Free Burger",
+  "description": "Too good to be true",
+  "price": -1.00
+}
+
+# ── 6. Update restaurant ──────────────────────────────────────
+
+### 6a. Update details → 200
+PUT {{baseUrl}}/api/owner/restaurants/{{restaurantId}}
+Content-Type: application/json
+Authorization: Bearer {{ownerToken}}
+
+{
+  "name": "Bob's Gourmet Burgers",
+  "description": "Award-winning burgers",
+  "address": "456 High Street",
+  "city": "London",
+  "phone": "+44123456789",
+  "cuisineType": "American Gourmet"
+}
+
+### 6b. Update menu item → 200
+PUT {{baseUrl}}/api/owner/restaurants/{{restaurantId}}/items/{{menuItemId}}
+Content-Type: application/json
+Authorization: Bearer {{ownerToken}}
+
+{
+  "name": "Classic Burger Deluxe",
+  "description": "Upgraded with crispy bacon",
+  "price": 12.99,
+  "imageUrl": null
+}

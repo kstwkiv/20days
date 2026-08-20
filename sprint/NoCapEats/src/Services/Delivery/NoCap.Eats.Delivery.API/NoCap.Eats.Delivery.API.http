@@ -1,0 +1,92 @@
+### ============================================================
+### NoCap Eats — Delivery Service Manual Tests
+### Base: http://localhost:5203  (or via gateway :5000)
+### Prerequisite: Order must be in ReadyForPickup state
+###   - orderId from Order tests (step 3c completed)
+### ============================================================
+
+@baseUrl = http://localhost:5203
+
+# Paste DeliveryAgent token from Identity tests:
+@agentToken = PASTE_AGENT_ACCESS_TOKEN_HERE
+
+# ── 1. Browse available deliveries ────────────────────────────
+
+### 1a. List pending deliveries → 200 (should show 1 after order placed)
+GET {{baseUrl}}/api/deliveries/pending
+Authorization: Bearer {{agentToken}}
+
+### Store the delivery ID from response:
+@deliveryId = PASTE_DELIVERY_ID_HERE
+
+### 1b. No token → 401
+GET {{baseUrl}}/api/deliveries/pending
+
+### 1c. Wrong role (use customer token) → 403
+# GET {{baseUrl}}/api/deliveries/pending
+# Authorization: Bearer CUSTOMER_TOKEN_HERE
+
+# ── 2. My deliveries ──────────────────────────────────────────
+
+### 2a. Agent's deliveries — empty before accepting → 200 []
+GET {{baseUrl}}/api/deliveries/my
+Authorization: Bearer {{agentToken}}
+
+# ── 3. Accept a delivery ──────────────────────────────────────
+
+### 3a. Accept → 200 (status: Assigned)
+POST {{baseUrl}}/api/deliveries/{{deliveryId}}/accept
+Authorization: Bearer {{agentToken}}
+
+### 3b. Accept same delivery again → 409 Conflict (already assigned)
+POST {{baseUrl}}/api/deliveries/{{deliveryId}}/accept
+Authorization: Bearer {{agentToken}}
+
+### 3c. My deliveries now → 200 [1 delivery, Assigned]
+GET {{baseUrl}}/api/deliveries/my
+Authorization: Bearer {{agentToken}}
+
+# ── 4. Drive delivery to completion ──────────────────────────
+
+### 4a. Mark picked up (Assigned → PickedUp) → 200
+PUT {{baseUrl}}/api/deliveries/{{deliveryId}}/status
+Content-Type: application/json
+Authorization: Bearer {{agentToken}}
+
+{
+  "status": 2
+}
+
+### 4b. Invalid transition (PickedUp → Assigned) → 409 Conflict
+PUT {{baseUrl}}/api/deliveries/{{deliveryId}}/status
+Content-Type: application/json
+Authorization: Bearer {{agentToken}}
+
+{
+  "status": 1
+}
+
+### 4c. Mark delivered (PickedUp → Delivered) → 200
+PUT {{baseUrl}}/api/deliveries/{{deliveryId}}/status
+Content-Type: application/json
+Authorization: Bearer {{agentToken}}
+
+{
+  "status": 3
+}
+
+### 4d. Verify final state → 200 (status: Delivered, deliveredAt not null)
+GET {{baseUrl}}/api/deliveries/my
+Authorization: Bearer {{agentToken}}
+
+# ── 5. Failed delivery scenario ───────────────────────────────
+
+### 5a. (After placing another order) Accept new delivery
+### 5b. Mark as Failed → 200
+# PUT {{baseUrl}}/api/deliveries/NEW_DELIVERY_ID/status
+# Content-Type: application/json
+# Authorization: Bearer {{agentToken}}
+#
+# {
+#   "status": 4
+# }
